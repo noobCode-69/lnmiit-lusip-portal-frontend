@@ -1,0 +1,279 @@
+@import url('../../colors.css');
+
+.home {
+
+}
+
+
+.hero-parent{ 
+    background-size: cover;
+    background-image: url("https://www.contactbird.io/static/webflow/images/frontend/contactbird_landing_bg.060a6b5972a9.svg");
+}
+
+.hero {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    max-width: 1200px;
+    color: white;
+}
+
+
+.nav {
+    padding: 3rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+.logo-container {
+    width:150px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.login-link {
+    padding: 0.75rem 2rem;
+    background-color: var(--link-bg);
+    border-radius: 500px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.login-link a {
+    color: var(--light-blue) ;
+}
+
+.login-link:hover,
+.login-link:focus {
+    background-color: #ffffff;
+}
+
+.hero-banner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 5rem 0;
+}
+
+.banner-highlight {
+    font-size: 0.8rem;
+    background-color: var(--link-bg);
+    color: var(--light-blue);
+    padding: 0.5rem 1rem;
+    width: fit-content;
+    border-radius: 500px;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.one {
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    background-color: var(--dark-blue);
+    color: white;
+    font-weight: bold;
+    border-radius: 100%;
+    margin-left: -0.5rem;
+    margin-right: 0.5rem;
+
+}
+
+.banner-heading {
+    font-size: 2.5rem;
+}
+
+
+.banner-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+
+.banner-link{
+    font-size: 1rem;
+    background-color: var(--link-bg);
+    color: var(--light-blue);
+    border-radius: 500px;
+    padding: 0.75rem 3rem;
+    font-weight: bold;
+}
+
+.banner-link:hover,
+.banner-link:focus,
+.banner-link:active {
+    background-color: white;
+}
+
+
+
+.hero-info-list {
+    padding: 3rem 5rem 5rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hero-info-list-item {
+    text-align: justify;
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+}
+
+.instructions-parent {
+    background-color: white;
+    display: flex;
+    align-items: flex-start;
+}
+
+
+
+.instruction-right-list {
+    padding: 6rem 3rem;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+.instruction-left {
+    gap: 1rem;
+    flex-direction: column;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: sticky;
+    width: 50%;
+    padding: 6rem;
+    top: 0;
+}
+
+.instruction-left h1{
+    font-size: 2.2rem;
+    line-height: 3rem;
+}
+.instruction-left p{
+    color: var(--text-color);
+}
+
+.highlight {
+    color: var(--light-blue);
+    font-size: 3rem;
+}
+
+.timeline-parent {
+    background-color: white ;
+    padding: 6rem 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.timeline-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-info h1 {
+    font-size: 3rem;
+    color: var(--light-blue);
+}
+
+
+.timelines{
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.arrow{
+    align-self: center;
+    width: 5rem;
+    height: 2px;
+    background-color: var(--dark-blue);
+}
+
+.timeline {
+    padding: 2rem;
+    width: 300px;
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 30px;
+    border: 2px solid var(--dark-blue);
+}
+
+.timeline h2 {
+    color: var(--light-blue);
+    font-size: 1.25rem;
+}
+
+.timeline p {
+    color: var(--text-color);
+}
+
+.timeline svg {
+    fill: var(--light-blue);
+}
+
+.timeline:hover {
+    cursor: pointer;
+    background-color: var(--light-blue);
+    border-color: var(--light-blue);
+}
+
+.timeline:hover h2,
+.timeline:hover p{
+    color: white;
+}
+
+.timeline:hover svg {
+    fill: white;
+}
+
+.contact-parent {
+    padding: 6rem 0;
+    background-color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--text-color);
+}
+
+.contact-parent p {
+    line-height: 1.5rem;
+}
+
+.contact-img-container{
+    width: 150px;
+    height: 50px;
+}
+
+.contact-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
