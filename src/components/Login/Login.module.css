@@ -1,0 +1,160 @@
+@import url("../../colors.css");
+
+.nav {
+    padding: 1rem 0;
+    box-shadow: 14px 14px 40px 0 rgba(118, 126, 173, 0.08) ;
+}
+
+.nav-content {
+    width: 90%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-container {
+    width: 125px;
+}
+
+.logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.signup {
+    color: var(--light-blue);
+}
+
+.signup a {
+    font-weight: bold;
+    border: 1px solid var(--light-blue);
+    border-radius: 500px;
+    padding: 0.5rem 1.5rem;
+    color: var(--light-blue);
+}
+
+.signup a:hover,
+.signup a:focus,
+.signup a:active {
+    background-color: var(--light-blue);
+    color: white;
+}
+
+
+
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 6rem 0;
+}
+
+.info h1{
+    font-size: 2.5rem;
+    color: var(--light-blue);
+}
+
+.info p{
+    color: var(--text-color);
+}
+
+
+.form {
+    box-shadow: 14px 14px 40px 0 rgba(118, 126, 173, 0.08);
+    border: 1px solid #ebecf0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 3rem;
+    gap: 1rem;
+}
+
+.form-input {
+    font-size: 1rem;
+    width: 300px;
+    padding: 1rem;
+    border: 1px solid #ebecf0;
+    outline: none;
+    border-radius: 5px;
+}
+
+.form-input:focus,
+.form-input:active {
+    border-color: var(--light-blue);
+}
+
+
+
+.submit-button {
+    border-radius: 5px;
+    margin-top: 1rem;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 1rem;
+    background-color: var(--light-blue);
+    color: white;
+    outline: none;
+    border: none;
+}
+
+
+.submit-button:hover {
+    cursor: pointer;
+}
+
+.submit-button:disabled:hover {
+    cursor: not-allowed;
+}
+
+.warning {
+    padding: 1rem;
+    text-align: center;
+    background-color: #FF6464;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.link-container {
+    color: var(--text-color);
+}
+
+.link-container a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+
+.contact-parent {
+    padding: 3rem 0;
+    background-color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--text-color);
+}
+
+.contact-parent p {
+    line-height: 1.5rem;
+}
+
+.contact-img-container{
+    width: 150px;
+    height: 50px;
+}
+
+.contact-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
