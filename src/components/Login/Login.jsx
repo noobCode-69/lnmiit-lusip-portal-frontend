@@ -98,7 +98,7 @@ const Login = () => {
           </button>
         </form>
         <div className={styled['link-container']}>
-            Already have an account <Link to="/">  Sign up</Link>
+            Don't have an account <Link to="/">  Sign up</Link>
         </div>
       </div>
 
@@ -110,10 +110,6 @@ const Login = () => {
           Send in your queries at   lusip@lnmiit.ac.in or sandeep.saini@lnmiit.ac.in</p>
           <p>©2023 LNMIIT. All rights reserved.</p>
     </div>
-
-
-
-
     </div>
   );
 };
