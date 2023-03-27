@@ -3,6 +3,7 @@
 
 
 .hero-parent{ 
+    background-color: var(--dark-blue);
     background-size: cover;
     background-image: url("https://www.contactbird.io/static/webflow/images/frontend/contactbird_landing_bg.060a6b5972a9.svg");
 }
@@ -133,16 +134,23 @@
     line-height: 1.6rem;
 }
 
+
+
 .instructions-parent {
     background-color: white;
     display: flex;
     align-items: flex-start;
+    width: 95%;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 3rem;
 }
 
 
 
 .instruction-right-list {
-    padding: 6rem 3rem;
+    padding: 6rem 2rem;
     color: var(--text-color);
     display: flex;
     flex-direction: column;
@@ -158,7 +166,7 @@
     justify-content: center;
     position: sticky;
     width: 50%;
-    padding: 6rem;
+    padding: 6rem 2rem;
     top: 0;
 }
 
@@ -205,24 +213,24 @@
     align-self: center;
     width: 5rem;
     height: 2px;
-    background-color: var(--dark-blue);
+    background-color: var(--light-blue);
 }
 
 .timeline {
     padding: 2rem;
-    width: 300px;
+    width: 250px;
     gap: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     border-radius: 30px;
-    border: 2px solid var(--dark-blue);
+    border: 2px solid var(--light-blue);
 }
 
 .timeline h2 {
     color: var(--light-blue);
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 
 .timeline p {
