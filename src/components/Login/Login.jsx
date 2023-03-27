@@ -64,7 +64,7 @@ const Login = () => {
             <img src={logo2} />
           </div>
           <div className={styled["signup"]}>
-            <Link to="/">Signup</Link>
+            <Link to="/accounts/signup">Signup</Link>
           </div>
         </div>
       </div>
@@ -98,7 +98,7 @@ const Login = () => {
           </button>
         </form>
         <div className={styled['link-container']}>
-            Don't have an account <Link to="/">  Sign up</Link>
+            Don't have an account <Link to="/accounts/signup">  Sign up</Link>
         </div>
       </div>
 

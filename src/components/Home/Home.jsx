@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../assets/logo.png";
-import logo2 from "../../assets/logo2.png";
+import logo2 from "../../assets/logo_black.png";
 
 import { Link } from "react-router-dom";
 import styled from "./Home.module.css";
@@ -24,6 +24,11 @@ const instructions = [
 ];
 
 const Home = () => {
+
+
+  // if logged in redirect otherwise stay
+  
+
   return (
     <div className={"home"}>
       <div className={styled["hero-parent"]}>
@@ -93,9 +98,9 @@ const Home = () => {
           </p>
         </div>
         <ul className={styled["instruction-right-list"]}>
-          {instructions.map((instruction) => {
+          {instructions.map((instruction,index) => {
             return (
-              <li className={styled["instruction-right-list-item"]}>
+              <li key={index} className={styled["instruction-right-list-item"]}>
                 {instruction}
               </li>
             );

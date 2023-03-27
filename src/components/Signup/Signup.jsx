@@ -84,7 +84,7 @@ const Signup = () => {
             <img src={logo2} />
           </div>
           <div className={styled["login"]}>
-            <Link to="/">Login</Link>
+            <Link to="/accounts/login">Login</Link>
           </div>
         </div>
       </div>
@@ -158,7 +158,7 @@ const Signup = () => {
           </button>
         </form>
         <div className={styled["link-container"]}>
-          Already have an account <Link to="/"> Login up</Link>
+          Already have an account <Link to="/accounts/login"> Login up</Link>
         </div>
       </div>
 
