@@ -7,7 +7,7 @@ import Error from "../Error/Error";
 const StudentApply = ({ id }) => {
   const [formData, setFormData] = useState({
     teacherName: "",
-    projectName: "",
+    projectId: "",
     isValid: false,
   });
   const onSubmitHandler = async (e) => {
@@ -15,29 +15,24 @@ const StudentApply = ({ id }) => {
     if (!formData.isValid) {
       return;
     }
-    const { teacherName, projectName } = formData;
-    const projectId = data.filter((project) => {
-      if (
-        project.teacherName == teacherName &&
-        project.projectName == projectName
-      ) {
-        return true;
-      }
-    })[0].projectId;
     const studentId = id;
-
+    const {projectId} = formData;
     setFormData({
-        teacherName: "",
-        projectName: "",
-        isValid: false,
-      });
+      teacherName: "",
+      projectId : "",
+      isValid: false,
+    });
     mutate({
-        projectId , 
-        studentId
+      projectId,
+      studentId,
     });
   };
-
-  const { mutate, data :  data2 , isLoading:  isLoading2 , error:  error2 } = useMutation(async (data) => {
+  const {
+    mutate,
+    data: data2,
+    isLoading: isLoading2,
+    error: error2,
+  } = useMutation(async (data) => {
     try {
       let response = await fetch("http://localhost:3000/student/apply/", {
         method: "POST",
@@ -56,16 +51,17 @@ const StudentApply = ({ id }) => {
     }
   });
 
+
   function changeFormData(fieldName, fieldValue) {
     setFormData((prevFormData) => {
       const newFormData = { ...prevFormData, [fieldName]: fieldValue };
       const isValid =
-        newFormData.projectName !== "" && newFormData.teacherName !== "";
+        newFormData.projectId !== "" && newFormData.teacherName !== "";
       return { ...newFormData, isValid: isValid };
     });
   }
 
-  const { data , error, isLoading, isError } = useQuery(
+  const { data, error, isLoading, isError } = useQuery(
     "all-projects",
     async () => {
       try {
@@ -83,14 +79,23 @@ const StudentApply = ({ id }) => {
     },
     {
       select: ({ projects }) => {
-        projects = projects.map((project) => {
-          return {
-            projectName: project.name,
-            projectId: project._id,
-            teacherName: project.teacherDetails.name,
-          };
-        });
-        return projects;
+        projects = projects.reduce((acc, project) => {
+          const teacherName = project.teacherDetails.name;
+          const projectName = project.name;
+          const projectId = project._id;
+
+          if (acc[teacherName]) {
+            acc[teacherName].projects.push({ projectName, projectId });
+          } else {
+            acc[teacherName] = {
+              teacherName,
+              projects: [{ projectName, projectId }],
+            };
+          }
+
+          return acc;
+        }, {});
+        return Object.values(projects);
       },
     }
   );
@@ -111,11 +116,32 @@ const StudentApply = ({ id }) => {
     );
   }
 
+  const renderOptions = () => {
+    const { teacherName } = formData;
+    let projects = data.filter((project) => {
+      if (project.teacherName == teacherName) {
+        return true;
+      }
+    })[0];
+    projects = projects.projects;
+    return projects.map((project) => {
+      return (
+        <option
+          key={project.projectName}
+          className={styled["form-option"]}
+          value={project.projectId}
+        >
+          {project.projectName}
+        </option>
+      );
+    });
+  };
+
   return (
     <div className={styled["apply-container"]}>
       <form className={styled["form"]} onSubmit={(e) => onSubmitHandler(e)}>
         {error2 && <div className={styled["warning"]}>{error2.message}</div>}
-        {data2 && <div className={styled['success']}>{data2.message}</div>}
+        {data2 && <div className={styled["success"]}>{data2.message}</div>}
         <select
           disabled={isLoading2}
           className={styled["form-select"]}
@@ -132,10 +158,10 @@ const StudentApply = ({ id }) => {
           </option>
 
           {data.map((project) => {
-            const { projectId, teacherName } = project;
+            const { teacherName } = project;
             return (
               <option
-                key={projectId}
+                key={teacherName}
                 className={styled["form-option"]}
                 value={teacherName}
               >
@@ -147,36 +173,19 @@ const StudentApply = ({ id }) => {
         <select
           disabled={!formData.teacherName}
           className={styled["form-select"]}
-          onChange={(e) => changeFormData("projectName", e.target.value)}
+          onChange={(e) => changeFormData("projectId", e.target.value)}
         >
           <option
             disabled
             key="placeholder"
             className={styled["form-option"]}
             value=""
-            selected={formData.projectName == ""}
+            selected={formData.projectId == ""}
           >
             Choose a Project.
           </option>
-          {data.map((project) => {
-            const { teacherName } = formData;
-            const projectTeacherName = project.teacherName;
-            const { projectId, projectName } = project;
-            if (teacherName != projectTeacherName) {
-              return null;
-            }
-            return (
-              <option
-                key={projectId}
-                className={styled["form-option"]}
-                value={projectName}
-              >
-                {projectName}
-              </option>
-            );
-          })}
+          {formData.teacherName && renderOptions()}
         </select>
-
         <button
           className={styled["submit-button"]}
           disabled={isLoading2 || !formData.isValid}
