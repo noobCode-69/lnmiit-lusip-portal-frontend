@@ -10,24 +10,24 @@ import FacultyAddProject from './components/FacultyAddProject/FacultyAddProject'
 import FacultyAllResponse from './components/FacultyAllResponse/FacultyAllResponse'
 import StudentAllProject from './components/StudentAllProject/StudentAllProject'
 import StudentApply from './components/StudentApply/StudentApply'
-
+import StudentLayout from './components/HigherOrderComponents/StudentLayout.js/StudentLayout'
 
 
 function App() {
   return (
     <div >
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/accounts/login' element={<Login/>}/>
-          <Route path='/accounts/signup' element={<Signup/>}/>
-          <PrivateRoute path="/accounts/student/home" component={<StudentAllProject/>} />
-          <PrivateRoute path="/accounts/student/apply" component={<StudentApply/>} />
-          <PrivateRoute path="/accounts/faculty/home" component={<FacultyAllResponse/>} />
-          <PrivateRoute path="/accounts/faculty/add-project" component={<FacultyAddProject/>} />
-          <PrivateRoute path="/accouts/admin/home" component={<AdminAllResponse/>}/>
-        </Routes>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/accounts/login' element={<Login/>}/>
+            <Route path='/accounts/signup' element={<Signup/>}/>
+            <Route path="/accounts/student/home/:studentId" element={<PrivateRoute component={ StudentLayout(StudentAllProject)} path="/accounts/student/home"/>} />
+            <Route path="/accounts/student/apply/:studentId" element={<PrivateRoute component={StudentLayout(StudentApply)} path="/accounts/student/apply"/>} />
+            <Route path="/accounts/faculty/home/:facultyId" element={<PrivateRoute component={FacultyAllResponse} path="/accounts/faculty/home"/>} />
+            <Route path="/accounts/faculty/add-project/:facultyId" element={<PrivateRoute component={FacultyAddProject} path="/accounts/faculty/add-project"/>} />
+            <Route path="/accouts/admin/home/:adminId" element={<PrivateRoute component={AdminAllResponse} path="/accouts/admin/home"/>}/>
+          </Routes>
+        </BrowserRouter>
     </div>
   )
 }

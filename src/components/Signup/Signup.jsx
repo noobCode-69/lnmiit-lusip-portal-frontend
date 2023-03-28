@@ -141,7 +141,8 @@ const Signup = () => {
             value={formData.branch}
           />
 
-          <select className={styled['form-select']} onChange={(e) => changeFormData("year", e.target.value)}>
+          <select disabled={isLoading} className={styled['form-select']} onChange={(e) => changeFormData("year", e.target.value)}>
+            <option disabled key="placeholder" className={styled['form-option']} value="" selected>Year</option>
             {
                 Years.map((year)=>{
                     return <option key={year} className={styled['form-option']} value={year}>{year}</option>

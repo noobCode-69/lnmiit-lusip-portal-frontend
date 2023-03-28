@@ -81,6 +81,7 @@
 }
 
 .form-input {
+    background-color: inherit;
     font-size: 1rem;
     width: 375px;
     padding: 1rem;
@@ -138,7 +139,6 @@
 
 .contact-parent {
     padding: 3rem 0;
-    background-color: white;
     text-align: center;
     display: flex;
     flex-direction: column;

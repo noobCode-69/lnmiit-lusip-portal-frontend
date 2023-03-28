@@ -1,0 +1,28 @@
+
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    color: var(--text-color);
+    padding: 1rem 2rem ;
+    border-bottom   : 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+        align-items: center;
+    justify-content: space-between;
+}
+
+.navigation-button {
+    display: none;
+}
+
+.profile-name {
+
+    font-size: 0.9rem;
+    margin-left: auto;
+}
+
+.profile-name:hover{
+    
+    color: var(--light-blue);
+    cursor: pointer;
+}

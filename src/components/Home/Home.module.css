@@ -137,7 +137,6 @@
 
 
 .instructions-parent {
-    background-color: white;
     display: flex;
     align-items: flex-start;
     width: 95%;
@@ -184,7 +183,6 @@
 }
 
 .timeline-parent {
-    background-color: white ;
     padding: 6rem 0;
     text-align: center;
     display: flex;
@@ -258,7 +256,6 @@
 
 .contact-parent {
     padding: 6rem 0;
-    background-color: white;
     text-align: center;
     display: flex;
     flex-direction: column;

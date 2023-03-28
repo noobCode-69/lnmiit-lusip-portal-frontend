@@ -7,29 +7,50 @@ function PrivateRoute({ component: Component, ...rest }) {
 
     const userRole = 'student';
     const isAuthenticated = userRole !== null;
+    
+
+    if (!isAuthenticated) {
+      return <Navigate to="/accounts/login" replace />;
+    }
+  
+
+
     const isStudent = userRole === 'student';
     const isTeacher = userRole === 'teacher';
     const isAdmin = userRole === 'admin';
 
-    return (
-      <Route
-        {...rest}
-        render={(props) =>
-          isAuthenticated ? (
-            (isStudent && props.path.startsWith('/accounts/student')) ||
-            (isTeacher && props.path.startsWith('/accounts/teacher')) ||
-            (isAdmin && props.path.startsWith('/accounts/admin')) ? (
-              <Component {...props} />
-            ) : (
-              <Navigate to={`/accounts/${userRole}/home`}  replace/>
-            )
-          ) : (
-            <Redirect to="/accounts/login" replace />
-          )
-        }
-      />
-    );
+
+    if (
+      (isStudent && !rest.path.startsWith('/accounts/student')) ||
+      (isTeacher && !rest.path.startsWith('/accounts/teacher')) ||
+      (isAdmin && !rest.path.startsWith('/accounts/admin'))
+    ) {
+      return <Navigate to={`/accounts/${userRole}/home`} replace />;
+    }
+  
+
+    return <Component/>;
+
+
   }
 
 
   export default PrivateRoute;
+
+
+
+
+  /**
+   * 
+   * 1) extract the cookie from localStrage 
+   * 2) if not present => redirect to login
+   * 2) validate the cookie from the backend
+   * 3) if valid proceed , if invalid => logout the redirect to login
+  * is logged in will be used for home route , login route , signup route
+  * 
+  * 
+  * 
+  * 
+  
+  */
+
