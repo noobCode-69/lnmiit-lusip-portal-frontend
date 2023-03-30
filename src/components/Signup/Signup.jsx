@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import logo2 from "../../assets/logo_black.png";
 import { Link } from "react-router-dom";
 import styled from "./Signup.module.css";
+import { useMutation } from "react-query";
 
 const Years = ["1st Year", "2nd Year", "3rd Year", "4th Year", "5th Year"];
 
 const Signup = () => {
-
-    
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,16 +17,7 @@ const Signup = () => {
     isValid: false,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  const apiFetch = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve("error creating");
-      }, 1000);
-    });
-  };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -35,28 +25,47 @@ const Signup = () => {
       return;
     }
     const { email, password, name, branch, year, college } = formData;
-    console.log({ email, password, name, branch, year, college })
-    setError(null);
-    try {
-      setIsLoading(true);
-      setFormData({
-        college: "",
-        email: "",
-        password: "",
-        name: "",
-        year: "",
-        branch: "",
-        isValid: false,
-      });
-      const data = await apiFetch();
-      alert("new user created , now redirecting to");
-    } catch (error) {
-      setError(error);
-    } finally {
-      setIsLoading(false);
-    }
+    setFormData({
+      college: "",
+      email: "",
+      password: "",
+      name: "",
+      year: "",
+      branch: "",
+      isValid: false,
+    });
+    mutate({
+      college,
+      email,
+      password,
+      name,
+      year,
+      branch,
+    });
   };
 
+  const { data , mutate, isLoading, error } = useMutation(async (data) => {
+    
+
+    try {
+      let response = await fetch("http://localhost:3000/user/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const responseData = await response.json();
+      if (response.status == 500) {
+        throw { message: responseData.message };
+      }
+      return responseData;
+    } catch (error) {
+      throw { message: error.message };
+    }
+
+
+  });
   const checkValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
@@ -95,8 +104,8 @@ const Signup = () => {
           <p>Create account</p>
         </div>
         <form className={styled["form"]} onSubmit={(e) => onSubmitHandler(e)}>
-          {error && <div className={styled["warning"]}>{error}</div>}
-
+          {error && <div className={styled["warning"]}>{error.message}</div>}
+          {data && <div className={styled['success']}>{data.message}</div>}
           <input
             placeholder="E-mail address"
             className={styled["form-input"]}
@@ -141,13 +150,31 @@ const Signup = () => {
             value={formData.branch}
           />
 
-          <select disabled={isLoading} className={styled['form-select']} onChange={(e) => changeFormData("year", e.target.value)}>
-            <option disabled key="placeholder" className={styled['form-option']} value="" selected>Year</option>
-            {
-                Years.map((year)=>{
-                    return <option key={year} className={styled['form-option']} value={year}>{year}</option>
-                })
-            }
+          <select
+            disabled={isLoading}
+            className={styled["form-select"]}
+            onChange={(e) => changeFormData("year", e.target.value)}
+          >
+            <option
+              disabled
+              key="placeholder"
+              className={styled["form-option"]}
+              value=""
+              selected
+            >
+              Year
+            </option>
+            {Years.map((year) => {
+              return (
+                <option
+                  key={year}
+                  className={styled["form-option"]}
+                  value={year}
+                >
+                  {year}
+                </option>
+              );
+            })}
           </select>
 
           <button

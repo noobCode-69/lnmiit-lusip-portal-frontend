@@ -147,6 +147,15 @@
 }
 
 
+.success {
+    border: 1px solid var(--light-blue);
+    color: var(--light-blue);
+    padding: 1rem;
+    text-align: center;
+    border-radius: 5px;
+}
+
+
 
 .link-container {
     color: var(--text-color);
@@ -183,3 +192,4 @@
     height: 100%;
     object-fit: contain;
 }
+

@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import logo2 from "../../assets/logo_black.png";
 import { Link } from "react-router-dom";
 import styled from "./Login.module.css";
+import { useMutation } from "react-query";
+
+
+// when logged in successfully i want to save the save the sessionkey in my local storage
+// and then navigate to 'home/id'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,17 +15,7 @@ const Login = () => {
     isValid: false,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  const apiFetch = () => {
-    // save cookie etc 
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        reject("Wrong Credentails");
-      }, 5000);
-    });
-  };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -28,18 +23,33 @@ const Login = () => {
       return;
     }
     const { email, password } = formData;
-    setError(null);
-    try {
-      setIsLoading(true);
-      setFormData({ email: "", password: "", isValid: false });
-      const data = await apiFetch();
-      alert("welcome logged in , now redirecting to");
-    } catch (error) {
-      setError(error);
-    } finally {
-      setIsLoading(false);
-    }
+    setFormData({ email: "", password: "", isValid: false });
+    mutate({email , password})
   };
+
+
+  const {data, mutate , isLoading , error} = useMutation(async (data) => {
+    try {
+      let response = await fetch("http://localhost:3000/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const responseData = await response.json();
+      if (response.status == 500) {
+        throw { message: responseData.message };
+      }
+      return responseData;
+    } catch (error) {
+      throw { message: error.message };
+    }
+  })
+
+
+
+
 
   const checkValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -75,7 +85,8 @@ const Login = () => {
         <p>Welcome back</p>
         </div>
         <form className={styled['form']} onSubmit={(e) => onSubmitHandler(e)}>
-          {error && <div className={styled['warning']}>{error}</div>}
+          {error && <div className={styled['warning']}>{error.message}</div>}
+          {data && <div className={styled['success']}>{data.message}</div>}
           <input
           placeholder="E-mail address"
           className={styled['form-input']}
