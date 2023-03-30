@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
 import logo2 from "../../assets/logo_black.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "./Login.module.css";
 import { useMutation } from "react-query";
 
-
-// when logged in successfully i want to save the save the sessionkey in my local storage
-// and then navigate to 'home/id'
-
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     isValid: false,
   });
-
-
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -24,11 +19,10 @@ const Login = () => {
     }
     const { email, password } = formData;
     setFormData({ email: "", password: "", isValid: false });
-    mutate({email , password})
+    mutate({ email, password });
   };
 
-
-  const {data, mutate , isLoading , error} = useMutation(async (data) => {
+  const { data, mutate, isLoading, error } = useMutation(async (data) => {
     try {
       let response = await fetch("http://localhost:3000/user/login", {
         method: "POST",
@@ -45,11 +39,7 @@ const Login = () => {
     } catch (error) {
       throw { message: error.message };
     }
-  })
-
-
-
-
+  });
 
   const checkValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -66,6 +56,27 @@ const Login = () => {
     });
   }
 
+  useEffect(() => {
+    if (data) {
+      if (error) {
+        return;
+      }
+      const { role, userId ,token , name , email  } = data.sessionData;
+      const session = JSON.stringify({name , role, email , userId , token})
+      localStorage.setItem('session' , session);
+      let link = `/accounts/`;
+      if (role == "student") {
+        link = link + `student/home/${userId}`;
+      } else if (role == "teacher") {
+        link = link + `faculty/home/${userId}`;
+      } else if (role == "admin") {
+        link = link + `admin/home/${userId}`;
+      }
+      navigate(link, { replace: true });
+    }
+  }, [data]);
+
+  
   return (
     <div className={styled["login"]}>
       <div className={styled["nav"]}>
@@ -80,47 +91,54 @@ const Login = () => {
       </div>
 
       <div className={styled["content"]}>
-        <div className={styled['info']}>
-        <h1>LOGIN</h1>
-        <p>Welcome back</p>
+        <div className={styled["info"]}>
+          <h1>LOGIN</h1>
+          <p>Welcome back</p>
         </div>
-        <form className={styled['form']} onSubmit={(e) => onSubmitHandler(e)}>
-          {error && <div className={styled['warning']}>{error.message}</div>}
-          {data && <div className={styled['success']}>{data.message}</div>}
+        <form className={styled["form"]} onSubmit={(e) => onSubmitHandler(e)}>
+          {error && <div className={styled["warning"]}>{error.message}</div>}
+          {data && <div className={styled["success"]}>{data.message}</div>}
           <input
-          placeholder="E-mail address"
-          className={styled['form-input']}
+            placeholder="E-mail address"
+            className={styled["form-input"]}
             disabled={isLoading}
             type="email"
             onChange={(e) => changeFormData("email", e.target.value)}
             value={formData.email}
           />
           <input
-          placeholder="Password"
-          className={styled['form-input']}
+            placeholder="Password"
+            className={styled["form-input"]}
             disabled={isLoading}
             type="password"
             onChange={(e) => changeFormData("password", e.target.value)}
             value={formData.password}
           />
 
-          <button className={styled['submit-button']} disabled={isLoading || !formData.isValid} type="submit">
+          <button
+            className={styled["submit-button"]}
+            disabled={isLoading || !formData.isValid}
+            type="submit"
+          >
             {!isLoading ? "Submit" : "Loading..."}
           </button>
         </form>
-        <div className={styled['link-container']}>
-            Don't have an account <Link to="/accounts/signup">  Sign up</Link>
+        <div className={styled["link-container"]}>
+          Don't have an account <Link to="/accounts/signup"> Sign up</Link>
         </div>
       </div>
 
-      <div className={styled['contact-parent']}>
-          <div className={styled['contact-img-container']}>
-            <img src={logo2}/>
-          </div>
-          <p>Feel free to contact us anytime, <br/>
-          Send in your queries at   lusip@lnmiit.ac.in or sandeep.saini@lnmiit.ac.in</p>
-          <p>©2023 LNMIIT. All rights reserved.</p>
-    </div>
+      <div className={styled["contact-parent"]}>
+        <div className={styled["contact-img-container"]}>
+          <img src={logo2} />
+        </div>
+        <p>
+          Feel free to contact us anytime, <br />
+          Send in your queries at lusip@lnmiit.ac.in or
+          sandeep.saini@lnmiit.ac.in
+        </p>
+        <p>©2023 LNMIIT. All rights reserved.</p>
+      </div>
     </div>
   );
 };

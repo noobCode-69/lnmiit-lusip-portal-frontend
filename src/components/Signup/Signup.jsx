@@ -3,10 +3,11 @@ import logo2 from "../../assets/logo_black.png";
 import { Link } from "react-router-dom";
 import styled from "./Signup.module.css";
 import { useMutation } from "react-query";
-
+import { useNavigate } from "react-router-dom";
 const Years = ["1st Year", "2nd Year", "3rd Year", "4th Year", "5th Year"];
 
 const Signup = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -45,8 +46,6 @@ const Signup = () => {
   };
 
   const { data , mutate, isLoading, error } = useMutation(async (data) => {
-    
-
     try {
       let response = await fetch("http://localhost:3000/user/signup", {
         method: "POST",
@@ -63,13 +62,10 @@ const Signup = () => {
     } catch (error) {
       throw { message: error.message };
     }
-
-
   });
   const checkValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
-
   function changeFormData(fieldName, fieldValue) {
     setFormData((prevFormData) => {
       const newFormData = { ...prevFormData, [fieldName]: fieldValue };
@@ -83,6 +79,12 @@ const Signup = () => {
         checkValidEmail(newFormData.email);
       return { ...newFormData, isValid: isValid };
     });
+  }
+  if(data){
+    if(error){
+      return;
+    }
+    navigate('/accounts/login' , {replace : true})
   }
 
   return (

@@ -61,7 +61,7 @@ const StudentAllProject = () => {
               {data.projects.map((project, index) => {
                 return (
                   <tr key={project._id} className={styled["table-entry"]}>
-                    <td>{index}</td>
+                    <td>{index+1}</td>
                     <td>{project.name}</td>
                     <td>{project.teacherDetails.name}</td>
                     <td className={styled["grow-downward"]}>
