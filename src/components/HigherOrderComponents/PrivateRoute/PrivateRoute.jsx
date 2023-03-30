@@ -3,23 +3,16 @@ import { Route } from "react-router";
 import {Navigate} from 'react-router-dom'
 
 function PrivateRoute({ component: Component, ...rest }) {
+    const userRole = 'admin';
 
 
-    const userRole = 'teacher';
     const isAuthenticated = userRole !== null;
-    
-
     if (!isAuthenticated) {
       return <Navigate to="/accounts/login" replace />;
     }
-  
-
-
     const isStudent = userRole === 'student';
     const isTeacher = userRole === 'teacher';
     const isAdmin = userRole === 'admin';
-
-
     if (
       (isStudent && !rest.path.startsWith('/accounts/student')) ||
       (isTeacher && !rest.path.startsWith('/accounts/faculty')) ||
@@ -27,11 +20,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     ) {
       return <Navigate to={`/accounts/login`} replace />;
     }
-  
-
     return <Component/>;
-
-
   }
 
 

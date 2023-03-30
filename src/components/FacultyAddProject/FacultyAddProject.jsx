@@ -3,7 +3,14 @@ import styled from "./FacultyAddProject.module.css";
 
 import { useMutation } from "react-query";
 
-const Years = ["1st Year", "2nd Year", "3rd Year", "4th Year", "5th Year", "Open for all"];
+const Years = [
+  "1st Year",
+  "2nd Year",
+  "3rd Year",
+  "4th Year",
+  "5th Year",
+  "Open for all",
+];
 const Modes = ["Online", "Offline", "Either"];
 
 const FacultyAddProject = ({ id }) => {
@@ -17,7 +24,6 @@ const FacultyAddProject = ({ id }) => {
     prerequists: "",
     isValid: false,
   });
-
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -57,7 +63,6 @@ const FacultyAddProject = ({ id }) => {
     });
   };
 
-
   const { mutate, data, isLoading, error } = useMutation(async (data) => {
     try {
       let response = await fetch("http://localhost:3000/teacher/addProject", {
@@ -80,14 +85,17 @@ const FacultyAddProject = ({ id }) => {
   function changeFormData(fieldName, fieldValue) {
     setFormData((prevFormData) => {
       const newFormData = { ...prevFormData, [fieldName]: fieldValue };
-      const isValid =   
-        newFormData.name !== "" && newFormData.description !== "" && newFormData.teacherId != "" && newFormData.modeOfExecution != "" && newFormData.validBranch != "" && newFormData.prerequists != "" && newFormData.validYear.length != 0
-      return { ...newFormData ,isValid : isValid };
+      const isValid =
+        newFormData.name !== "" &&
+        newFormData.description !== "" &&
+        newFormData.teacherId != "" &&
+        newFormData.modeOfExecution != "" &&
+        newFormData.validBranch != "" &&
+        newFormData.prerequists != "" &&
+        newFormData.validYear.length != 0;
+      return { ...newFormData, isValid: isValid };
     });
   }
-
-
-  
 
   return (
     <div className={styled["add-container"]}>
@@ -141,7 +149,7 @@ const FacultyAddProject = ({ id }) => {
             key="placeholder"
             className={styled["form-option"]}
             value=""
-            selected
+            selected={formData.modeOfExecution == ""}
           >
             Modes
           </option>
@@ -164,15 +172,21 @@ const FacultyAddProject = ({ id }) => {
             )
           }
         >
+          <option
+            disabled
+            key="placeholder"
+            className={styled["form-option"]}
+            value=""
+          >
+            Ctrl + Click for multiple selection
+          </option>
+
           {Years.map((year) => (
             <option key={year} className={styled["form-option"]} value={year}>
               {year}
             </option>
           ))}
         </select>
-
-        <label className={styled['label']} >Ctrl + Click for multiple selection.</label>
-
 
         <button
           className={styled["submit-button"]}

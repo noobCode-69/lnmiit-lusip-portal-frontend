@@ -12,7 +12,7 @@
 .table {
     color: var(--text-color);
     margin-right: auto;
-    margin-left: auto;
+    /* margin-left: auto; */
     padding: 1rem;
     font-size: 0.9rem;
 }
