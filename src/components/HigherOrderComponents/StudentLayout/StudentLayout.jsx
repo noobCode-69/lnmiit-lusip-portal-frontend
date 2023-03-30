@@ -4,17 +4,7 @@ import { useParams } from "react-router";
 
 import Navbar from "../../Navbar/Navbar";
 import Sidebar from "../../Sidebar/Sidebar";
-
-const StudentNavigationLinks = [
-  {
-    to: "/accounts/student/home",
-    text: "Home",
-  },
-  {
-    to: "/accounts/student/apply",
-    text: "Apply",
-  },
-];
+import StudentNavigationLinks from "./StudentLayout.config";
 
 const StudentLayout = (Component) => {
 

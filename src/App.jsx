@@ -10,8 +10,8 @@ import FacultyAddProject from './components/FacultyAddProject/FacultyAddProject'
 import FacultyAllResponse from './components/FacultyAllResponse/FacultyAllResponse'
 import StudentAllProject from './components/StudentAllProject/StudentAllProject'
 import StudentApply from './components/StudentApply/StudentApply'
-import StudentLayout from './components/HigherOrderComponents/StudentLayout.js/StudentLayout'
-
+import StudentLayout from './components/HigherOrderComponents/StudentLayout/StudentLayout'
+import TeacherLayout from './components/HigherOrderComponents/TeacherLayout/TeacherLayout'
 
 function App() {
   return (
@@ -23,8 +23,8 @@ function App() {
             <Route path='/accounts/signup' element={<Signup/>}/>
             <Route path="/accounts/student/home/:studentId" element={<PrivateRoute component={ StudentLayout(StudentAllProject)} path="/accounts/student/home"/>} />
             <Route path="/accounts/student/apply/:studentId" element={<PrivateRoute component={StudentLayout(StudentApply)} path="/accounts/student/apply"/>} />
-            <Route path="/accounts/faculty/home/:facultyId" element={<PrivateRoute component={FacultyAllResponse} path="/accounts/faculty/home"/>} />
-            <Route path="/accounts/faculty/add-project/:facultyId" element={<PrivateRoute component={FacultyAddProject} path="/accounts/faculty/add-project"/>} />
+            <Route path="/accounts/faculty/home/:facultyId" element={<PrivateRoute component={TeacherLayout(FacultyAllResponse)} path="/accounts/faculty/home"/>} />
+            <Route path="/accounts/faculty/add-project/:facultyId" element={<PrivateRoute component={TeacherLayout(FacultyAddProject)} path="/accounts/faculty/add-project"/>} />
             <Route path="/accouts/admin/home/:adminId" element={<PrivateRoute component={AdminAllResponse} path="/accouts/admin/home"/>}/>
           </Routes>
         </BrowserRouter>

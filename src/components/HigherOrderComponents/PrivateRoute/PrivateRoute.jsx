@@ -5,7 +5,7 @@ import {Navigate} from 'react-router-dom'
 function PrivateRoute({ component: Component, ...rest }) {
 
 
-    const userRole = 'student';
+    const userRole = 'teacher';
     const isAuthenticated = userRole !== null;
     
 
@@ -22,10 +22,10 @@ function PrivateRoute({ component: Component, ...rest }) {
 
     if (
       (isStudent && !rest.path.startsWith('/accounts/student')) ||
-      (isTeacher && !rest.path.startsWith('/accounts/teacher')) ||
+      (isTeacher && !rest.path.startsWith('/accounts/faculty')) ||
       (isAdmin && !rest.path.startsWith('/accounts/admin'))
     ) {
-      return <Navigate to={`/accounts/${userRole}/home`} replace />;
+      return <Navigate to={`/accounts/login`} replace />;
     }
   
 

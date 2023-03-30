@@ -1,21 +1,7 @@
-
-
-
-.loading-container ,
-.error-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 1rem;
+.add-container
+{
+    padding-top: 2rem;
 }
-
-
-.apply-container {
-    padding: 2rem 0;
-}
-
-
-
 .form {
     margin-top: 1rem;
     width: 500px;
@@ -42,6 +28,24 @@
     font-size: 1rem;
 
 }
+
+
+.form-input {
+    background-color: inherit;
+    font-size: 1rem;
+    /* width: 375px; */
+    padding: 1rem;
+    border: 1px solid #ebecf0;
+    outline: none;
+    border-radius: 5px;
+}
+
+.form-input:focus,
+.form-input:active {
+    border-color: var(--light-blue);
+}
+
+
 
 .form-select:focus,
 .form-select:active{
@@ -86,4 +90,9 @@
     padding: 1rem;
     text-align: center;
     border-radius: 5px;
+}
+
+.label {
+    font-size: 0.9rem;
+    color: var(--light-blue);
 }

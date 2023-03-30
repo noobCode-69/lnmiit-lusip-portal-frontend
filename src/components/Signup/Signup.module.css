@@ -139,13 +139,14 @@
 }
 
 .warning {
+    border: 1px solid red;
+    color: red;
     padding: 1rem;
     text-align: center;
-    background-color: red;
-    color: white;
-    font-weight: bold;
     border-radius: 5px;
 }
+
+
 
 .link-container {
     color: var(--text-color);
