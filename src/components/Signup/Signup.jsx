@@ -17,9 +17,6 @@ const Signup = () => {
     college: "",
     isValid: false,
   });
-
-
-
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (!formData.isValid) {

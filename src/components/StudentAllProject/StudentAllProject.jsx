@@ -5,12 +5,16 @@ import { useQuery } from "react-query";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 const StudentAllProject = () => {
+
+
   const { data, error, isLoading, isError } = useQuery(
     "all-projects",
     async () => {
       try {
         let allProjects = await fetch(
-          "http://localhost:3000/general/getAllProjects/"
+          "http://localhost:3000/general/getAllProjects/", {
+            credentials : "include"
+          }
         );
         const data = await allProjects.json();
         if (allProjects.status == 500) {
@@ -38,6 +42,10 @@ const StudentAllProject = () => {
       </div>
     );
   }
+
+
+  
+
   return (
     <div className={styled["all-projects-parent"]}>
       {data.projects && data.projects.length == 0 ? (

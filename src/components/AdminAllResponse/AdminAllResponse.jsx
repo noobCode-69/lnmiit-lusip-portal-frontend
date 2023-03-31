@@ -7,8 +7,6 @@ import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 
 const AdminAllResponse = () => {
-
-
   const [open, setOpen] = useState(null);
 
   const { data, error, isLoading, isError } = useQuery(
@@ -16,7 +14,10 @@ const AdminAllResponse = () => {
     async () => {
       try {
         let allProjects = await fetch(
-          "http://localhost:3000/general/getAllProjects/"
+          "http://localhost:3000/general/getAllProjects/",
+          {
+            credentials: "include",
+          }
         );
         const data = await allProjects.json();
         if (allProjects.status == 500) {
@@ -45,6 +46,7 @@ const AdminAllResponse = () => {
             headers: {
               "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify({ projectId: open }),
           }
         );
@@ -62,7 +64,6 @@ const AdminAllResponse = () => {
     }
   );
 
-
   if (isLoading) {
     return (
       <div className={styled["loading-container"]}>
@@ -79,7 +80,6 @@ const AdminAllResponse = () => {
     );
   }
 
-  
   const toggleHandler = (projectId) => {
     if (open == projectId) {
       setOpen(null);
@@ -177,7 +177,7 @@ const AdminAllResponse = () => {
               {data.projects.map((project, index) => {
                 return (
                   <tr key={project._id} className={styled["table-entry"]}>
-                    <td>{index+1}</td>
+                    <td>{index + 1}</td>
                     <td>{project.name}</td>
                     <td>{project.teacherDetails.name}</td>
                     <td className={styled["grow-downward"]}>

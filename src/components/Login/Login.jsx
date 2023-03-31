@@ -6,6 +6,8 @@ import { useMutation } from "react-query";
 
 const Login = () => {
   const navigate = useNavigate();
+
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -30,6 +32,7 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+        credentials : 'include'
       });
       const responseData = await response.json();
       if (response.status == 500) {
@@ -61,8 +64,9 @@ const Login = () => {
       if (error) {
         return;
       }
-      const { role, userId ,token , name , email  } = data.sessionData;
-      const session = JSON.stringify({name , role, email , userId , token})
+      const { role, userId , name , email  } = data.sessionData;
+      const session = JSON.stringify({name , role, email , userId })
+      console.log({role, userId , name , email})
       localStorage.setItem('session' , session);
       let link = `/accounts/`;
       if (role == "student") {

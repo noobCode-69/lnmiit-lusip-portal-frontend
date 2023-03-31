@@ -70,6 +70,7 @@ const FacultyAddProject = ({ id }) => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials : "include", 
         body: JSON.stringify(data),
       });
       const responseData = await response.json();

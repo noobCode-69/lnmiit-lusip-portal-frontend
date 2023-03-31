@@ -1,34 +1,38 @@
 import React from "react";
-import styled from './PrivateRoute.module.css'
+import styled from "./PrivateRoute.module.css";
 import { useQuery } from "react-query";
 import { Navigate } from "react-router-dom";
 import Loading from "../../Loading/Loading";
+
 function PrivateRoute({ component: Component, ...rest }) {
-  const { data, isLoading, error } = useQuery("session", async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:3000/session/getSessionDetails",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            token: JSON.parse(localStorage.getItem("session")).token,
-          }),
+  const session = JSON.parse(localStorage.getItem("session"));
+  const { data, isLoading, error } = useQuery(
+    "session",
+    async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/session/getSessionDetails",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+        const responseData = await response.json();
+        if (response.status == 500) {
+          throw { message: responseData.message };
         }
-      );
-
-      const responseData = await response.json();
-      if (response.status == 500) {
-        throw { message: responseData.message };
+        return responseData;
+      } catch (error) {
+        throw { message: error.message };
       }
-      return responseData;
-    } catch (error) {
-      throw { message: error.message };
+    },
+    {
+      enabled: session !== null,
     }
-  });
-
+  );
   if (isLoading) {
     return (
       <div className={styled["loading-container"]}>
@@ -36,11 +40,13 @@ function PrivateRoute({ component: Component, ...rest }) {
       </div>
     );
   }
-
   if (error) {
+    localStorage.removeItem("session");
     return <Navigate to="/accounts/login" replace />;
   }
-
+  if (session == null) {
+    return <Navigate to="/accounts/login" replace />;
+  }
   if (data) {
     const { role } = data;
     const isStudent = role === "student";

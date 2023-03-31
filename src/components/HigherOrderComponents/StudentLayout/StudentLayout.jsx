@@ -13,8 +13,7 @@ const StudentLayout = (Component) => {
     const links = StudentNavigationLinks.map((link) => {
       return { ...link, to: `${link.to}/${studentId}` };
     });
-    const name = "MD";
-    const email = "armanyppph@gmail.com";
+    const {name , email} = JSON.parse(localStorage.getItem('session'))
     return (
       <div className={styled["layout"]}>
         <Sidebar links={links} id={studentId} />

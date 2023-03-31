@@ -18,6 +18,7 @@ const FacultyAllResponse = ({ id }) => {
             headers: {
               "Content-Type": "application/json",
             },
+            credentials : "include", 
             body: JSON.stringify({ teacherId: id }),
           }
         );
@@ -47,6 +48,7 @@ const FacultyAllResponse = ({ id }) => {
             headers: {
               "Content-Type": "application/json",
             },
+            credentials : "include", 
             body: JSON.stringify({ projectId: open }),
           }
         );

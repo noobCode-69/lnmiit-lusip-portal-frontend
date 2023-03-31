@@ -39,6 +39,7 @@ const StudentApply = ({ id }) => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials : "include",
         body: JSON.stringify(data),
       });
       const responseData = await response.json();
@@ -66,8 +67,9 @@ const StudentApply = ({ id }) => {
     async () => {
       try {
         let allProjects = await fetch(
-          "http://localhost:3000/general/getAllProjects/"
-        );
+          "http://localhost:3000/general/getAllProjects/" , {
+            credentials : "include"
+          });
         const data = await allProjects.json();
         if (allProjects.status == 500) {
           throw { message: data.message };
@@ -92,14 +94,12 @@ const StudentApply = ({ id }) => {
               projects: [{ projectName, projectId }],
             };
           }
-
           return acc;
         }, {});
         return Object.values(projects);
       },
     }
   );
-
   if (isLoading) {
     return (
       <div className={styled["loading-container"]}>
@@ -107,7 +107,6 @@ const StudentApply = ({ id }) => {
       </div>
     );
   }
-
   if (isError) {
     return (
       <div className={styled["error-container"]}>
@@ -115,7 +114,6 @@ const StudentApply = ({ id }) => {
       </div>
     );
   }
-
   const renderOptions = () => {
     const { teacherName } = formData;
     let projects = data.filter((project) => {
