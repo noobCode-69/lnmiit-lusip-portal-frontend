@@ -1,8 +1,7 @@
 import React , {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
-function IsLoggedIn({ component: Component,  }) {
-  
+function IsLoggedIn({ component: Component  }) {
   
   const session = JSON.parse(localStorage.getItem("session"));
   const navigate = useNavigate();
@@ -21,7 +20,7 @@ function IsLoggedIn({ component: Component,  }) {
       }
       navigate(link, { replace: true });
     }
-  }, [session, navigate]);
+  }, [session ,navigate]);
 
 
 

@@ -5,12 +5,11 @@ import { useQuery } from "react-query";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 const StudentAllProject = () => {
-
-
   const { data, error, isLoading, isError } = useQuery(
     "all-projects",
     async () => {
       try {
+        console.log("fetching")
         let allProjects = await fetch(
           "http://localhost:3000/general/getAllProjects/", {
             credentials : "include"
@@ -36,6 +35,7 @@ const StudentAllProject = () => {
   }
 
   if (isError) {
+    console.log(error);
     return (
       <div className={styled["error-container"]}>
         <Error message={error.message} />
@@ -43,12 +43,12 @@ const StudentAllProject = () => {
     );
   }
 
-
+ 
   
 
   return (
     <div className={styled["all-projects-parent"]}>
-      {data.projects && data.projects.length == 0 ? (
+      {data && data.projects && data.projects.length == 0 ? (
         <h1 style={{textAlign : "center"}} className={styled["message"]}>No Projects Yet.</h1>
       ) : (
         <table className={styled["table"]}>

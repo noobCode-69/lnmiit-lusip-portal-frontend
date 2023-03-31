@@ -9,15 +9,14 @@ import AdminNavigationLinks from "./AdminLayout.config";
 const AdminLayout = (Component) => {
 
   return (props) => {
-    const adminId = useParams().adminId;
+    const id = useParams().adminId;
     const links = AdminNavigationLinks.map((link) => {
       return { ...link, to: `${link.to}/${adminId}` };
     });
-    const name = "Sandeep";
-    const email = "sandeep@gmail.com";
+    const {name , email , typeId} = JSON.parse(localStorage.getItem('session'))
     return (
       <div className={styled["layout"]}>
-        <Sidebar links={links} id={adminId} />
+        <Sidebar links={links}  id={id} />
         <div className={styled["right-component"]}>
           <Navbar name={email} />
           <div className={styled["main-parent"]}>
@@ -25,7 +24,7 @@ const AdminLayout = (Component) => {
                 <h1>Welcome back, <span style={{fontWeight : "bold"}}>{name}</span> </h1>
               </div>
             <div className={styled["main-content"]}>
-              <Component id={adminId}/>
+              <Component id={adminId} typeId={typeId}/>
             </div>
           </div>
         </div>

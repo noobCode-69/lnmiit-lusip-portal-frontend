@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 
-const FacultyAllResponse = ({ id }) => {
+const FacultyAllResponse = ({ id , typeId }) => {
   const [open, setOpen] = useState(null);
 
   const { data, error, isLoading, isError } = useQuery(
@@ -19,7 +19,7 @@ const FacultyAllResponse = ({ id }) => {
               "Content-Type": "application/json",
             },
             credentials : "include", 
-            body: JSON.stringify({ teacherId: id }),
+            body: JSON.stringify({ teacherId: typeId }),
           }
         );
         const data = await allProjects.json();
@@ -32,6 +32,10 @@ const FacultyAllResponse = ({ id }) => {
       }
     }
   );
+
+
+
+
   const {
     data: data2,
     error: error2,

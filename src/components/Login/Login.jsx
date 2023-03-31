@@ -64,9 +64,8 @@ const Login = () => {
       if (error) {
         return;
       }
-      const { role, userId , name , email  } = data.sessionData;
-      const session = JSON.stringify({name , role, email , userId })
-      console.log({role, userId , name , email})
+      const { role, userId , name , email , typeId  } = data.sessionData;
+      let session = JSON.stringify({name , role, email , userId , typeId});
       localStorage.setItem('session' , session);
       let link = `/accounts/`;
       if (role == "student") {
@@ -76,6 +75,7 @@ const Login = () => {
       } else if (role == "admin") {
         link = link + `admin/home/${userId}`;
       }
+      console.log("navigating to link" , link);
       navigate(link, { replace: true });
     }
   }, [data]);

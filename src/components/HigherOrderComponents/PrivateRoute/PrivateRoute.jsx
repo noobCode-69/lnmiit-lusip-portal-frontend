@@ -5,9 +5,15 @@ import { Navigate } from "react-router-dom";
 import Loading from "../../Loading/Loading";
 
 function PrivateRoute({ component: Component, ...rest }) {
+
+
+
+
   const session = JSON.parse(localStorage.getItem("session"));
+
+
   const { data, isLoading, error } = useQuery(
-    "session",
+    "session-in-private-route",
     async () => {
       try {
         const response = await fetch(
@@ -31,8 +37,11 @@ function PrivateRoute({ component: Component, ...rest }) {
     },
     {
       enabled: session !== null,
+      cacheTime : 0
     }
   );
+
+
   if (isLoading) {
     return (
       <div className={styled["loading-container"]}>
@@ -40,13 +49,14 @@ function PrivateRoute({ component: Component, ...rest }) {
       </div>
     );
   }
+
+
   if (error) {
     localStorage.removeItem("session");
     return <Navigate to="/accounts/login" replace />;
   }
-  if (session == null) {
-    return <Navigate to="/accounts/login" replace />;
-  }
+
+
   if (data) {
     const { role } = data;
     const isStudent = role === "student";
@@ -61,6 +71,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     }
     return <Component />;
   }
+
 }
 
 export default PrivateRoute;

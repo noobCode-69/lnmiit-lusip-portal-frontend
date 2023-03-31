@@ -9,14 +9,14 @@ import StudentNavigationLinks from "./StudentLayout.config";
 const StudentLayout = (Component) => {
 
   return (props) => {
-    const studentId = useParams().studentId;
+    const id = useParams().studentId;
     const links = StudentNavigationLinks.map((link) => {
-      return { ...link, to: `${link.to}/${studentId}` };
+      return { ...link, to: `${link.to}/${id}` };
     });
-    const {name , email} = JSON.parse(localStorage.getItem('session'))
+    const {name , email , typeId} = JSON.parse(localStorage.getItem('session'))
     return (
       <div className={styled["layout"]}>
-        <Sidebar links={links} id={studentId} />
+        <Sidebar links={links} id={id}  />
         <div className={styled["right-component"]}>
           <Navbar name={email} />
           <div className={styled["main-parent"]}>
@@ -24,7 +24,7 @@ const StudentLayout = (Component) => {
                 <h1>Welcome back, <span style={{fontWeight : "bold"}}>{name}</span> </h1>
               </div>
             <div className={styled["main-content"]}>
-              <Component id={studentId}/>
+              <Component id={id} typeId={typeId}/>
             </div>
           </div>
         </div>

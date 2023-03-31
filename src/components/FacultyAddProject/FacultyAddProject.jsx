@@ -13,11 +13,11 @@ const Years = [
 ];
 const Modes = ["Online", "Offline", "Either"];
 
-const FacultyAddProject = ({ id }) => {
+const FacultyAddProject = ({ id , typeId }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    teacherId: id,
+    teacherId: typeId,
     modeOfExecution: "",
     validYear: [],
     validBranch: "",
@@ -25,12 +25,12 @@ const FacultyAddProject = ({ id }) => {
     isValid: false,
   });
 
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (!formData.isValid) {
       return;
     }
-
     console.log(formData);
 
     const {

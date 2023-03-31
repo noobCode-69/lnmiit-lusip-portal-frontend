@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 
-const AdminAllResponse = () => {
+const AdminAllResponse = ({id , typeId}) => {
   const [open, setOpen] = useState(null);
 
   const { data, error, isLoading, isError } = useQuery(
