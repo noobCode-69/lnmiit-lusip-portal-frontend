@@ -89,7 +89,9 @@ const Signup = () => {
       <div className={styled["nav"]}>
         <div className={styled["nav-content"]}>
           <div className={styled["logo-container"]}>
-            <img src={logo2} />
+            <Link to="/">
+              <img src={logo2} />
+            </Link>
           </div>
           <div className={styled["login"]}>
             <Link to="/accounts/login">Login</Link>

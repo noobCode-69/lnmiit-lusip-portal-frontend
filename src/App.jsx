@@ -8,7 +8,9 @@ import PrivateRoute from "./components/HigherOrderComponents/PrivateRoute/Privat
 import IsLoggedIn from "./components/HigherOrderComponents/IsLoggedIn/IsLoggedIn";
 import AdminAllResponse from "./components/AdminAllResponse/AdminAllResponse";
 import FacultyAddProject from "./components/FacultyAddProject/FacultyAddProject";
+import FacultyAllProjects from "./components/FacultyAllProjects/FacultyAllProjects";
 import FacultyAllResponse from "./components/FacultyAllResponse/FacultyAllResponse";
+import FacultyDeleteProject from "./components/FacultyDeleteProject/FacultyDeleteProject";
 import StudentAllProject from "./components/StudentAllProject/StudentAllProject";
 import StudentApply from "./components/StudentApply/StudentApply";
 import StudentLayout from "./components/HigherOrderComponents/StudentLayout/StudentLayout";
@@ -51,7 +53,7 @@ function App() {
             path="/accounts/faculty/home/:facultyId"
             element={
               <PrivateRoute
-                component={TeacherLayout(FacultyAllResponse)}
+                component={TeacherLayout(FacultyAllProjects)}
                 path="/accounts/faculty/home"
               />
             }
@@ -62,6 +64,25 @@ function App() {
               <PrivateRoute
                 component={TeacherLayout(FacultyAddProject)}
                 path="/accounts/faculty/add-project"
+              />
+            }
+          />
+          <Route
+            path="/accounts/faculty/all-responses/:facultyId"
+            element={
+              <PrivateRoute
+                component={TeacherLayout(FacultyAllResponse)}
+                path="/accounts/faculty/all-responses"
+              />
+            }
+          />
+
+          <Route
+            path="/accounts/faculty/delete-project/:facultyId"
+            element={
+              <PrivateRoute
+                component={TeacherLayout(FacultyDeleteProject)}
+                path="/accounts/faculty/delete-project"
               />
             }
           />

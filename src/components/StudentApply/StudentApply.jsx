@@ -4,7 +4,8 @@ import { useQuery, useMutation } from "react-query";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 
-const StudentApply = ({ id }) => {
+
+const StudentApply = ({ id , typeId }) => {
   const [formData, setFormData] = useState({
     teacherName: "",
     projectId: "",
@@ -15,7 +16,7 @@ const StudentApply = ({ id }) => {
     if (!formData.isValid) {
       return;
     }
-    const studentId = id;
+    const studentId = typeId;
     const {projectId} = formData;
     setFormData({
       teacherName: "",
@@ -168,6 +169,8 @@ const StudentApply = ({ id }) => {
             );
           })}
         </select>
+
+        
         <select
           disabled={!formData.teacherName}
           className={styled["form-select"]}
