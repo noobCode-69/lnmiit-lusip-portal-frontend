@@ -1,0 +1,75 @@
+@import url('../../colors.css');
+
+.all-projects-parent {
+    padding-top: 2rem;
+}
+
+.table {
+    color: var(--text-color);
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+.table-headings {
+  background-color: white;
+}
+
+
+.table-headings th,
+.table-entry td {
+  padding: 1rem 2rem;
+}
+
+
+.table-entries {
+  background-color: white;
+}
+
+
+th , td {
+    word-wrap: break-word;
+    max-width: 200px;
+}
+
+.grow-downward {
+  word-wrap: break-word !important;
+  max-width: 275px !important;
+}
+
+
+.loading-container ,
+.error-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+}
+
+
+.message {
+  padding: 1rem;
+  color: var(--light-blue);
+  font-size: 1.5rem;
+}
+
+.open-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.open-close svg{
+  transform: scale(0.9);
+}
+
+.open-close:hover {
+  color: var(--light-blue);
+  cursor: pointer;
+}
+
+.open-close:hover svg {
+  fill: var(--light-blue);
+}

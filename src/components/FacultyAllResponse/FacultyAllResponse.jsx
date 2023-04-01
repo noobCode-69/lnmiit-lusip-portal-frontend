@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import styled from "./FacultyAllResponse.module.css";
 import { useQuery, useMutation } from "react-query";

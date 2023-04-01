@@ -6,6 +6,7 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import PrivateRoute from "./components/HigherOrderComponents/PrivateRoute/PrivateRoute";
 import IsLoggedIn from "./components/HigherOrderComponents/IsLoggedIn/IsLoggedIn";
+import AdminAllProject from "./components/AdminAllProject/AdminAllProject";
 import AdminAllResponse from "./components/AdminAllResponse/AdminAllResponse";
 import FacultyAddProject from "./components/FacultyAddProject/FacultyAddProject";
 import FacultyAllProjects from "./components/FacultyAllProjects/FacultyAllProjects";
@@ -90,8 +91,17 @@ function App() {
             path="/accounts/admin/home/:adminId"
             element={
               <PrivateRoute
-                component={AdminLayout(AdminAllResponse)}
+                component={AdminLayout(AdminAllProject)}
                 path="/accounts/admin/home"
+              />
+            }
+          />
+          <Route
+            path="/accounts/admin/responses/:adminId"
+            element={
+              <PrivateRoute
+                component={AdminLayout(AdminAllResponse)}
+                path="/accounts/admin/responses"
               />
             }
           />

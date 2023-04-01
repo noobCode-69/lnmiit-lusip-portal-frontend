@@ -1,14 +1,71 @@
-@import url('../../colors.css');
 
-.all-projects-parent {
-    padding-top: 2rem;
+
+.all-response-parent {
+    padding: 2rem 0;
 }
 
+
+
+.loading-container ,
+.error-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+}
+
+
+.form {
+    padding: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+
+
+
+.form-select{  
+    border: 1px solid #ebecf0;
+    background-color: inherit;
+    outline: none;
+    color: var(--text-color);
+    appearance: none;
+    padding: 1rem;
+    font-size: 1rem;
+
+}
+
+.form-select:focus,
+.form-select:active{
+    border-color: var(--light-blue); 
+}
+
+
+.message {
+    
+    
+    padding: 1rem;
+    padding-top: 3rem;
+    color: var(--light-blue);
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+
+
 .table {
+
     color: var(--text-color);
     margin-right: auto;
-    /* margin-left: auto; */
-    padding: 1rem;
+    margin-left: auto;
+    padding:3rem 1rem 1rem 1rem;
     font-size: 0.9rem;
 }
 
@@ -39,37 +96,36 @@ th , td {
 }
 
 
-.loading-container ,
-.error-container{
+
+
+.status-false ,
+.status-true ,
+.status-loading {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3rem 1rem;
 }
 
 
-.message {
-  padding: 1rem;
-  color: var(--light-blue);
-  font-size: 1.5rem;
+.status-true span, 
+.status-false span,
+.status-loading span{
+    padding: 0.25rem;
+    border-radius: 5px;
 }
 
-.open-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+
+.status-false span {
+    outline: 1px solid red;    
+    color: red;
 }
 
-.open-close svg{
-  transform: scale(0.9);
+.status-true span{
+    outline: 1px solid green;
+    color: green;
 }
 
-.open-close:hover {
-  color: var(--light-blue);
-  cursor: pointer;
-}
-
-.open-close:hover svg {
-  fill: var(--light-blue);
+.status-loading span {
+    outline: 1px solid var(--light-blue);
+    color: var(--light-blue);
 }

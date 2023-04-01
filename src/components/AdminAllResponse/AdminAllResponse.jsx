@@ -1,68 +1,151 @@
-import React, { useState } from "react";
-import styled from "./AdminAllResponse.module.css";
+import React , {useState} from "react";
+import styled from './AdminAllResponse.module.css'
 
-import { useQuery } from "react-query";
 
+import { useQuery, useMutation } from "react-query";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
+import client from "../../queryClient";
 
-const AdminAllResponse = ({id , typeId}) => {
-  const [open, setOpen] = useState(null);
+const AdminAllResponse = ({id, typeId}) => {
 
-  const { data, error, isLoading, isError } = useQuery(
-    "all-projects",
-    async () => {
-      try {
-        let allProjects = await fetch(
-          "http://localhost:3000/general/getAllProjects/",
-          {
-            credentials: "include",
+
+    const [selectedProject, setSelectedProject] = useState(null);
+
+    const { data, error, isLoading, isError } = useQuery(
+        "admin-all-projects",
+        async () => {
+          try {
+            let allProjects = await fetch(
+              "http://localhost:3000/general/getAllProjects/",
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
+              }
+            );
+            const data = await allProjects.json();
+            if (allProjects.status == 500) {
+              throw { message: data.message };
+            }
+            return data;
+          } catch (error) {
+            throw { message: error.message };
           }
-        );
-        const data = await allProjects.json();
-        if (allProjects.status == 500) {
-          throw { message: data.message };
         }
-        return data;
-      } catch (error) {
-        throw { message: error.message };
-      }
-    }
-  );
+      );
 
-  const {
-    data: data2,
-    error: error2,
-    isLoading: isLoading2,
-    isError: isError2,
-  } = useQuery(
-    ["projects", open],
-    async () => {
-      try {
-        let allResponses = await fetch(
-          "http://localhost:3000/general/getAllResponse/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({ projectId: open }),
+      const {
+        data: data2,
+        error: error2,
+        isLoading: isLoading2,
+      } = useQuery(
+        ["projects", selectedProject],
+        async () => {
+          try {
+            let allResponses = await fetch(
+              "http://localhost:3000/general/getAllResponse/",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ projectId: selectedProject }),
+              }
+            );
+            const data = await allResponses.json();
+            if (allResponses.status == 500) {
+              throw { message: data.message };
+            }
+            return data;
+          } catch (error) {
+            throw { message: error.message };
           }
-        );
-        const data = await allResponses.json();
-        if (allResponses.status == 500) {
-          throw { message: data.message };
+        },
+        {
+          enabled: selectedProject != null,
         }
-        return data;
-      } catch (error) {
-        throw { message: error.message };
-      }
-    },
-    {
-      enabled: open != null,
+      );
+
+      const handleFormChange = (projectId) => {
+        setSelectedProject(projectId);
+      };
+
+
+
+  const fetchResponses = () => {
+    if (selectedProject == null) {
+      return null;
     }
-  );
+    if (isLoading2) {
+      return (
+        <div className={styled["loading-container"]}>
+          <Loading />
+        </div>
+      );
+    }
+    if (error2) {
+      return (
+        <div className={styled["error-container"]}>
+          <Error message={error2.message} />
+        </div>
+      );
+    }
+
+    if (data2 && data2.responses.length == 0) {
+      return <h1 className={styled["message"]}>No Responses Yet.</h1>;
+    }
+
+    return (
+      <table className={styled["table"]}>
+        <thead className={styled["table-headings"]}>
+          <tr>
+            <th>Sr. No</th>
+            <th>Name</th>
+            <th>College</th>
+            <th>Branch</th>
+            <th>Year</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        {data2 && (
+          <tbody className={styled["table-entries"]}>
+            {data2.responses.map((response, index) => {
+              const { name, year, branch, college } = response.studentDetails;
+              const { responseStatus } = response;
+              return (
+                <tr key={response._id} className={styled["table-entry"]}>
+                  <td>{index + 1}</td>
+                  <td>{name}</td>
+                  <td>{college}</td>
+                  <td>{branch}</td>
+                  <td>{year}</td>
+                  { responseStatus == true ? (
+                    <td className={styled["status-true"]}>
+                      <span >
+                        {" "}
+                        Approved
+                      </span>
+                    </td>
+                  ) : (
+                    <td className={styled["status-false"]}>
+                      <span>
+                        {" "}
+                        Waiting{" "}
+                      </span>
+                    </td>
+                  )}
+                </tr>
+              );
+            })}
+          </tbody>
+        )}
+      </table>
+    );
+  };
 
   if (isLoading) {
     return (
@@ -80,152 +163,45 @@ const AdminAllResponse = ({id , typeId}) => {
     );
   }
 
-  const toggleHandler = (projectId) => {
-    if (open == projectId) {
-      setOpen(null);
-    } else {
-      setOpen(projectId);
-    }
-  };
-
-  const fetchResponses = () => {
-    if (open == null) {
-      return null;
-    }
-    if (isLoading2) {
-      return (
-        <div className={styled["loading-container"]}>
-          <Loading />
-        </div>
-      );
-    }
-    if (isError2) {
-      return (
-        <div className={styled["error-container"]}>
-          <Error message={error2.message} />
-        </div>
-      );
-    }
-    if (data2 && data2.responses.length == 0) {
-      return <h1 className={styled["message"]}>No Responses Yet.</h1>;
-    }
-    return (
-      <table style={{ marginLeft: 0 }} className={styled["table"]}>
-        <thead className={styled["table-headings"]}>
-          <tr>
-            <th>Sr. No</th>
-            <th>Name</th>
-            <th>College</th>
-            <th>Branch</th>
-            <th>Year</th>
-            <th> Status</th>
-          </tr>
-        </thead>
-        {data2 && (
-          <tbody className={styled["table-entries"]}>
-            {data2.responses.map((response, index) => {
-              const { name, year, branch, college } = response.studentDetails;
-              const { responseStatus } = response;
+  return (
+    <div className={styled["all-repsonse-parent"]}>
+      {data && data.projects.length == 0 ? (
+        <h1 className={styled["message"]}>No projects yet.</h1>
+      ) : (
+        <form className={styled["form"]}>
+          <select
+            disabled={isLoading || isLoading2}
+            className={styled["form-select"]}
+            onChange={(e) => handleFormChange(e.target.value)}
+          >
+            <option
+              disabled
+              key="placeholder"
+              className={styled["form-option"]}
+              value=""
+              selected={!selectedProject}
+            >
+              Select a project
+            </option>
+            {data.projects.map((project) => {
               return (
-                <tr key={response._id} className={styled["table-entry"]}>
-                  <td>{index + 1}</td>
-                  <td>{name}</td>
-                  <td>{college}</td>
-                  <td>{branch}</td>
-                  <td>{year}</td>
-                  {responseStatus == true ? (
-                    <td className={styled["status-true"]}>
-                      <span> Approved!</span>
-                    </td>
-                  ) : (
-                    <td className={styled["status-false"]}>
-                      <span>Not Approved!</span>
-                    </td>
-                  )}
-                </tr>
+                <option
+                  key={project._id}
+                  className={styled["form-option"]}
+                  value={project._id}
+                >
+                  {project.name}
+                </option>
               );
             })}
-          </tbody>
-        )}
-      </table>
-    );
-  };
-
-  return (
-    <div className={styled["all-projects-parent"]}>
-      {data.projects && data.projects.length == 0 ? (
-        <h1 style={{ textAlign: "center" }} className={styled["message"]}>
-          No Projects Yet.
-        </h1>
-      ) : (
-        <table className={styled["table"]}>
-          <thead className={styled["table-headings"]}>
-            <tr>
-              <th>Sr. No</th>
-              <th>Project Title</th>
-              <th>Faculty</th>
-              <th>Project Description</th>
-              <th>Mode of Execution</th>
-              <th>Prerequisites</th>
-              <th>Preferred Branch</th>
-              <th>Preferred Year</th>
-              <th>Responses</th>
-            </tr>
-          </thead>
-          {data && (
-            <tbody className={styled["table-entries"]}>
-              {data.projects.map((project, index) => {
-                return (
-                  <tr key={project._id} className={styled["table-entry"]}>
-                    <td>{index + 1}</td>
-                    <td>{project.name}</td>
-                    <td>{project.teacherDetails.name}</td>
-                    <td className={styled["grow-downward"]}>
-                      {project.description}
-                    </td>
-                    <td>{project.modeOfExecution}</td>
-                    <td>{project.prerequists}</td>
-                    <td>{project.validBranch}</td>
-                    <td>{project.validYear.join(" and ")}</td>
-                    <td onClick={() => toggleHandler(project._id)}>
-                      {open != project._id ? (
-                        <div className={styled["open-close"]}>
-                          <svg
-                            width="24"
-                            height="24"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                          >
-                            <path d="M12 0c6.623 0 12 5.377 12 12s-5.377 12-12 12-12-5.377-12-12 5.377-12 12-12zm0 1c6.071 0 11 4.929 11 11s-4.929 11-11 11-11-4.929-11-11 4.929-11 11-11zm-3 5.753l6.44 5.247-6.44 5.263.678.737 7.322-6-7.335-6-.665.753z" />
-                          </svg>
-                          OPEN
-                        </div>
-                      ) : (
-                        <div className={styled["open-close"]}>
-                          <svg
-                            width="24"
-                            height="24"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                          >
-                            <path d="M12 0c6.623 0 12 5.377 12 12s-5.377 12-12 12-12-5.377-12-12 5.377-12 12-12zm0 1c6.071 0 11 4.929 11 11s-4.929 11-11 11-11-4.929-11-11 4.929-11 11-11zm5.247 15l-5.247-6.44-5.263 6.44-.737-.678 6-7.322 6 7.335-.753.665z" />
-                          </svg>
-                          CLOSE
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          )}
-        </table>
+          </select>
+        </form>
       )}
       {fetchResponses()}
     </div>
   );
-};
 
-export default AdminAllResponse;
+
+}
+
+export default AdminAllResponse

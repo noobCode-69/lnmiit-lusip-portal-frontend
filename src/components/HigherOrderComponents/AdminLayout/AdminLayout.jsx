@@ -11,7 +11,7 @@ const AdminLayout = (Component) => {
   return (props) => {
     const id = useParams().adminId;
     const links = AdminNavigationLinks.map((link) => {
-      return { ...link, to: `${link.to}/${adminId}` };
+      return { ...link, to: `${link.to}/${id}` };
     });
     const {name , email , typeId} = JSON.parse(localStorage.getItem('session'))
     return (
@@ -24,7 +24,7 @@ const AdminLayout = (Component) => {
                 <h1>Welcome back, <span style={{fontWeight : "bold"}}>{name}</span> </h1>
               </div>
             <div className={styled["main-content"]}>
-              <Component id={adminId} typeId={typeId}/>
+              <Component id={id} typeId={typeId}/>
             </div>
           </div>
         </div>
