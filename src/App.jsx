@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import NotFound from "./components/NotFound/NotFound";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
@@ -35,18 +36,17 @@ function App() {
             element={<IsLoggedIn component={Signup} />}
           />
 
-
           <Route
             path="/accounts/student/home/:studentId"
             element={
               <PrivateRoute
-                component={RegistrationCheckup(StudentLayout(StudentAllProject))}
+                component={RegistrationCheckup(
+                  StudentLayout(StudentAllProject)
+                )}
                 path="/accounts/student/home"
               />
             }
           />
-
-
 
           <Route
             path="/accounts/student/apply/:studentId"
@@ -61,7 +61,9 @@ function App() {
             path="/accounts/faculty/home/:facultyId"
             element={
               <PrivateRoute
-                component={RegistrationCheckup(TeacherLayout(FacultyAllProjects))}
+                component={RegistrationCheckup(
+                  TeacherLayout(FacultyAllProjects)
+                )}
                 path="/accounts/faculty/home"
               />
             }
@@ -70,7 +72,9 @@ function App() {
             path="/accounts/faculty/add-project/:facultyId"
             element={
               <PrivateRoute
-                component={RegistrationCheckup(TeacherLayout(FacultyAddProject))}
+                component={RegistrationCheckup(
+                  TeacherLayout(FacultyAddProject)
+                )}
                 path="/accounts/faculty/add-project"
               />
             }
@@ -79,7 +83,9 @@ function App() {
             path="/accounts/faculty/all-responses/:facultyId"
             element={
               <PrivateRoute
-                component={RegistrationCheckup(TeacherLayout(FacultyAllResponse))}
+                component={RegistrationCheckup(
+                  TeacherLayout(FacultyAllResponse)
+                )}
                 path="/accounts/faculty/all-responses"
               />
             }
@@ -89,7 +95,9 @@ function App() {
             path="/accounts/faculty/delete-project/:facultyId"
             element={
               <PrivateRoute
-                component={RegistrationCheckup(TeacherLayout(FacultyDeleteProject))}
+                component={RegistrationCheckup(
+                  TeacherLayout(FacultyDeleteProject)
+                )}
                 path="/accounts/faculty/delete-project"
               />
             }
@@ -113,7 +121,7 @@ function App() {
             }
           />
 
-<Route
+          <Route
             path="/accounts/admin/toggle-registration/:adminId"
             element={
               <PrivateRoute
@@ -122,6 +130,8 @@ function App() {
               />
             }
           />
+
+          <Route path="*" element={<NotFound/>}/>
 
         </Routes>
       </BrowserRouter>
