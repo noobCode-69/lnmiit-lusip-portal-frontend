@@ -9,7 +9,6 @@ const StudentAllProject = () => {
     "all-projects",
     async () => {
       try {
-        console.log("fetching")
         let allProjects = await fetch(
           "http://localhost:3000/general/getAllProjects/", {
             credentials : "include"
@@ -35,7 +34,6 @@ const StudentAllProject = () => {
   }
 
   if (isError) {
-    console.log(error);
     return (
       <div className={styled["error-container"]}>
         <Error message={error.message} />

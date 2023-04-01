@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "./TeacherLayout.module.css";
 import { useParams } from "react-router";
-
 import Navbar from "../../Navbar/Navbar";
 import Sidebar from "../../Sidebar/Sidebar";
 import TeacherNavigationLinks from "./TeacherLayout.config";

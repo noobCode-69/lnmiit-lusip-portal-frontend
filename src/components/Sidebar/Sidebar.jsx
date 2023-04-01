@@ -15,6 +15,8 @@ const Sidebar = ({ links, id }) => {
     localStorage.removeItem('session')
     navigate("/accounts/login", { replace: true });
   };
+
+  
   const {mutate} = useMutation(async (data) => {
     try {
       let response = await fetch("http://localhost:3000/user/logout", {

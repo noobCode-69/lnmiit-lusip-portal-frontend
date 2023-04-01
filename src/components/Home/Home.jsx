@@ -26,8 +26,6 @@ const instructions = [
 const Home = () => {
 
 
-  // if logged in redirect otherwise stay
-  
 
   return (
     <div className={"home"}>
@@ -90,7 +88,7 @@ const Home = () => {
         <div className={styled["instruction-left"]}>
           <h1>
             <span className={styled["highlight"]}> Instruction,</span> <br />{" "}
-            Guidelines for Students during their stay in College.
+            Guidelines for Students.
           </h1>
           <p>
             We encourage all students to familiarize themselves with the
