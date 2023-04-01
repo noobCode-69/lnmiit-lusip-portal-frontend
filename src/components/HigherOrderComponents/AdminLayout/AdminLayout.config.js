@@ -6,6 +6,9 @@ const AdminNavigationLinks = [
     {
       to : "/accounts/admin/responses",
       text : "Responses"
+    }, {
+      to : "/accounts/admin/toggle-registration",
+      text : "Toggle Registration"
     }
   ];
 

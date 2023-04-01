@@ -9,6 +9,7 @@ import RegistrationCheckup from "./components/HigherOrderComponents/Registration
 import IsLoggedIn from "./components/HigherOrderComponents/IsLoggedIn/IsLoggedIn";
 import AdminAllProject from "./components/AdminAllProject/AdminAllProject";
 import AdminAllResponse from "./components/AdminAllResponse/AdminAllResponse";
+import AdminToggleRegistration from "./components/AdminToggleRegistration/AdminToggleRegistration";
 import FacultyAddProject from "./components/FacultyAddProject/FacultyAddProject";
 import FacultyAllProjects from "./components/FacultyAllProjects/FacultyAllProjects";
 import FacultyAllResponse from "./components/FacultyAllResponse/FacultyAllResponse";
@@ -111,6 +112,17 @@ function App() {
               />
             }
           />
+
+<Route
+            path="/accounts/admin/toggle-registration/:adminId"
+            element={
+              <PrivateRoute
+                component={AdminLayout(AdminToggleRegistration)}
+                path="/accounts/admin/toggle-registration"
+              />
+            }
+          />
+
         </Routes>
       </BrowserRouter>
     </div>

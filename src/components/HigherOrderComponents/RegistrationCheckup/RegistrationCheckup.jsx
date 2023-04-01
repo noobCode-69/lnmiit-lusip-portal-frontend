@@ -7,6 +7,8 @@ import { useQuery , useMutation} from "react-query";
 import { useNavigate } from "react-router";
 
 const RegistrationCheckup = (Component) => {
+
+
   const { data, error, isLoading, isError } = useQuery(
     "registration-status",
     async () => {
@@ -27,6 +29,8 @@ const RegistrationCheckup = (Component) => {
       }
     }
   );
+
+  
 
   if (isLoading) {
     return () => {
