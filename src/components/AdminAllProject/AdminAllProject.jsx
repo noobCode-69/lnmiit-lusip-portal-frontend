@@ -9,7 +9,7 @@ import Error from "../Error/Error";
 const AdminAllProject = ({id , typeId}) => {
 
   const { data, error, isLoading, isError } = useQuery(
-    "all-projects",
+    "admin-all-projects-all-projects",
     async () => {
       try {
         let allProjects = await fetch(

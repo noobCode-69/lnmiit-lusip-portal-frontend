@@ -10,7 +10,7 @@ const RegistrationCheckup = (Component) => {
 
 
   const { data, error, isLoading, isError } = useQuery(
-    "registration-status",
+    "registration-checkup-registration-status",
     async () => {
       try {
         let response = await fetch(
@@ -84,7 +84,7 @@ const RegistrationCheckup = (Component) => {
       return (
         <div>
           <div className={styled["error-container"]}>
-            <Error message={"Registration closed for now!"} />
+            <Error message={"Registration closed for now! Logout to see results!"} />
           </div>
           <div onClick={handleLogout} className={styled["logout-button"]}>
             LOGOUT

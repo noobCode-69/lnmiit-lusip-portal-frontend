@@ -6,7 +6,7 @@ import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 const StudentAllProject = () => {
   const { data, error, isLoading, isError } = useQuery(
-    "all-projects",
+    "student-all-projects-all-projects",
     async () => {
       try {
         let allProjects = await fetch(

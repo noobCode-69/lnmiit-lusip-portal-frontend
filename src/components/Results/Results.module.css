@@ -1,0 +1,108 @@
+@import url("../../colors.css");
+
+.loading-container,
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.report-parent {
+  color: var(--text-color);
+  padding: 1rem;
+  padding-top: 5rem;
+}
+
+.message {
+  font-weight: bold;
+  padding: 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.content {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.button {
+  border-radius: 500px;
+  font-weight: bold;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  outline: 1px solid var(--light-blue);
+  color: var(--light-blue);
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: var(--light-blue);
+  color: white;
+}
+
+
+
+.table {
+    /* margin-top: 2rem; */
+    color: var(--text-color);
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+.table-headings {
+  background-color: white;
+}
+
+
+.table-headings th,
+.table-entry td {
+  padding: 1rem 2rem;
+}
+
+
+.table-entries {
+  background-color: white;
+}
+
+
+th , td {
+    word-wrap: break-word;
+    max-width: 200px;
+}
+
+
+.status-false ,
+.status-true  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.status-true span, 
+.status-false span {
+    padding: 0.25rem;
+    border-radius: 5px;
+}
+
+
+.status-false span {
+    outline: 1px solid red;    
+    color: red;
+}
+
+.status-true span{
+    outline: 1px solid green;
+    color: green;
+}

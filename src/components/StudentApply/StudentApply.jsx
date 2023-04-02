@@ -64,7 +64,7 @@ const StudentApply = ({ id , typeId }) => {
   }
 
   const { data, error, isLoading, isError } = useQuery(
-    "all-projects",
+    "student-apply-all-projects",
     async () => {
       try {
         let allProjects = await fetch(

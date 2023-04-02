@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Results from "./components/Results/Results";
 import NotFound from "./components/NotFound/NotFound";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
@@ -130,7 +131,7 @@ function App() {
               />
             }
           />
-
+          <Route path="/accounts/results" element={<Results/>}/>
           <Route path="*" element={<NotFound/>}/>
 
         </Routes>

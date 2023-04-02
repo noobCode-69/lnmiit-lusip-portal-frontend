@@ -10,7 +10,7 @@ const FacultyAllProjects = ({ id, typeId }) => {
   
 
   const { data, error, isLoading, isError } = useQuery(
-    "teacher-all-projects",
+    "teacher-all-projects-teacher-all-projects",
     async () => {
       try {
         let allProjects = await fetch(

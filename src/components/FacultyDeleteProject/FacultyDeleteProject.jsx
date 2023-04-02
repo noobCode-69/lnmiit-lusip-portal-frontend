@@ -12,7 +12,7 @@ const FacultyDeleteProject = ({ id, typeId }) => {
   });
 
   const { data, error, isLoading, isError } = useQuery(
-    "teacher-all-projects",
+    "faculty-delete-project-teacher-all-projects",
     async () => {
       try {
         let allProjects = await fetch(

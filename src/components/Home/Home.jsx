@@ -55,7 +55,7 @@ const Home = () => {
               <Link className={styled["banner-link"]} to="/accounts/login">
                 PROJECTS
               </Link>
-              <Link className={styled["banner-link"]} to="/accounts/login">
+              <Link className={styled["banner-link"]} to="/accounts/results">
                 RESULTS
               </Link>
             </div>

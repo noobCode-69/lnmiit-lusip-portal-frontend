@@ -11,7 +11,7 @@ const FacultyAllResponse = ({ id, typeId }) => {
 
   
   const { data, error, isLoading, isError } = useQuery(
-    "teacher-all-projects",
+    "teacher-all-response-teacher-all-projects",
     async () => {
       try {
         let allProjects = await fetch(
@@ -41,7 +41,7 @@ const FacultyAllResponse = ({ id, typeId }) => {
     error: error2,
     isLoading: isLoading2,
   } = useQuery(
-    ["projects", selectedProject],
+    ["teacher-all-repsonse-projects", selectedProject],
     async () => {
       try {
         let allResponses = await fetch(

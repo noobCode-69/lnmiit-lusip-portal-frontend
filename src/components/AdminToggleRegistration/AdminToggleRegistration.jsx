@@ -8,7 +8,7 @@ const AdminToggleRegistration = ({ id, typeId }) => {
 
 
   const { data, error, isLoading, isError } = useQuery(
-    "registration-status-admin",
+    "admin-toggle-registration-registration-status-admin",
     async () => {
       try {
         let response = await fetch(

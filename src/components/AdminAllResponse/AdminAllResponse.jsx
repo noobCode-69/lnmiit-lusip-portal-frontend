@@ -13,7 +13,7 @@ const AdminAllResponse = ({id, typeId}) => {
     const [selectedProject, setSelectedProject] = useState(null);
 
     const { data, error, isLoading, isError } = useQuery(
-        "admin-all-projects",
+        "admin-all-response-admin-all-projects",
         async () => {
           try {
             let allProjects = await fetch(
@@ -42,7 +42,7 @@ const AdminAllResponse = ({id, typeId}) => {
         error: error2,
         isLoading: isLoading2,
       } = useQuery(
-        ["projects", selectedProject],
+        ["admin-all-response-projects", selectedProject],
         async () => {
           try {
             let allResponses = await fetch(
