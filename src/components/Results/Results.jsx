@@ -3,6 +3,10 @@ import styled from "./Results.module.css";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
+import logo2 from "../../assets/logo_black.png";
+
+
 import jsPDF from "jspdf";
 import 'jspdf-autotable';
 
@@ -126,6 +130,18 @@ const Results = () => {
 
   return (
     <div className={styled["report-parent"]}>
+
+
+       <div className={styled["nav"]}>
+        <div className={styled["nav-content"]}>
+          <div className={styled["logo-container"]}>
+            <Link to="/">
+              <img src={logo2} />
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <div className={styled["content"]}>
         <div className={styled["message"]}>
           {data2.status == true ? (
@@ -190,6 +206,20 @@ const Results = () => {
           </table>
         )}
       </div>
+
+      <div className={styled["contact-parent"]}>
+        <div className={styled["contact-img-container"]}>
+          <img src={logo2} />
+        </div>
+        <p>
+          Feel free to contact us anytime, <br />
+          Send in your queries at lusip@lnmiit.ac.in or
+          sandeep.saini@lnmiit.ac.in
+        </p>
+        <p>©2023 LNMIIT. All rights reserved.</p>
+      </div>
+
+
     </div>
   );
 };
