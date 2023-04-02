@@ -45,7 +45,7 @@ const FacultyAddProject = ({ id , typeId }) => {
     setFormData({
       name: "",
       description: "",
-      teacherId: id,
+      teacherId: typeId,
       modeOfExecution: "",
       validYear: [],
       validBranch: "",

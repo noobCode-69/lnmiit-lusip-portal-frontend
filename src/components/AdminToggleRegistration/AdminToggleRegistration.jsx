@@ -58,7 +58,7 @@ const AdminToggleRegistration = ({ id, typeId }) => {
     },
     {
       onSettled: () => {
-        client.invalidateQueries(["registration-status-admin"]);
+        client.invalidateQueries(["admin-toggle-registration-registration-status-admin"]);
       },
     }
   );

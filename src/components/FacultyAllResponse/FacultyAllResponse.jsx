@@ -99,7 +99,7 @@ const FacultyAllResponse = ({ id, typeId }) => {
     },
     {
       onSettled: () => {
-        client.invalidateQueries(["projects", selectedProject]);
+        client.invalidateQueries(["teacher-all-repsonse-projects", selectedProject]);
       },
     }
   );
