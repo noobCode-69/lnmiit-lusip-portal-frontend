@@ -79,7 +79,6 @@ const Login = () => {
       }
       navigate(link, { replace: true });
     }
-    console.log(JSON.parse(localStorage.getItem("session")));
   }, [data]);
 
   return (
