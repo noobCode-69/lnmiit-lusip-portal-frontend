@@ -4,8 +4,7 @@ import { useQuery, useMutation } from "react-query";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 
-
-const StudentApply = ({ id , typeId }) => {
+const StudentApply = ({ id, typeId }) => {
   const [formData, setFormData] = useState({
     teacherName: "",
     projectId: "",
@@ -17,10 +16,10 @@ const StudentApply = ({ id , typeId }) => {
       return;
     }
     const studentId = typeId;
-    const {projectId} = formData;
+    const { projectId } = formData;
     setFormData({
       teacherName: "",
-      projectId : "",
+      projectId: "",
       isValid: false,
     });
     mutate({
@@ -35,12 +34,12 @@ const StudentApply = ({ id , typeId }) => {
     error: error2,
   } = useMutation(async (data) => {
     try {
-      let response = await fetch("http://localhost:3000/student/apply/", {
+      let response = await fetch("/api/student/apply/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials : "include",
+        credentials: "include",
         body: JSON.stringify(data),
       });
       const responseData = await response.json();
@@ -52,7 +51,6 @@ const StudentApply = ({ id , typeId }) => {
       throw { message: error.message };
     }
   });
-
 
   function changeFormData(fieldName, fieldValue) {
     setFormData((prevFormData) => {
@@ -67,10 +65,9 @@ const StudentApply = ({ id , typeId }) => {
     "student-apply-all-projects",
     async () => {
       try {
-        let allProjects = await fetch(
-          "http://localhost:3000/general/getAllProjects/" , {
-            credentials : "include"
-          });
+        let allProjects = await fetch("/api/general/getAllProjects/", {
+          credentials: "include",
+        });
         const data = await allProjects.json();
         if (allProjects.status == 500) {
           throw { message: data.message };
@@ -101,6 +98,7 @@ const StudentApply = ({ id , typeId }) => {
       },
     }
   );
+
   if (isLoading) {
     return (
       <div className={styled["loading-container"]}>
@@ -170,7 +168,6 @@ const StudentApply = ({ id , typeId }) => {
           })}
         </select>
 
-        
         <select
           disabled={!formData.teacherName}
           className={styled["form-select"]}

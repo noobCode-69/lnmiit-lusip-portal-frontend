@@ -17,7 +17,7 @@ const AdminAllResponse = ({id, typeId}) => {
         async () => {
           try {
             let allProjects = await fetch(
-              "http://localhost:3000/general/getAllProjects/",
+              "/api/general/getAllProjects/",
               {
                 method: "GET",
                 headers: {

@@ -44,7 +44,7 @@ const Signup = () => {
 
   const { data , mutate, isLoading, error } = useMutation(async (data) => {
     try {
-      let response = await fetch("http://localhost:3000/user/signup", {
+      let response = await fetch("/api/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

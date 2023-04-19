@@ -15,7 +15,7 @@ const Results = () => {
     "results-data",
     async () => {
       try {
-        let report = await fetch("http://localhost:3000/general/getReport/", {
+        let report = await fetch("http://localhost:3000/api/general/getReport/", {
           credentials: "include",
         });
         const data = await report.json();
@@ -36,7 +36,7 @@ const Results = () => {
   } = useQuery("results-registration-status", async () => {
     try {
       let status = await fetch(
-        "http://localhost:3000/general/getRegistrationStatus/",
+        "http://localhost:3000/api/general/getRegistrationStatus/",
         {
           credentials: "include",
         }

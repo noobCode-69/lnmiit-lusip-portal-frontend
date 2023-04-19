@@ -10,7 +10,7 @@ const StudentAllProject = () => {
     async () => {
       try {
         let allProjects = await fetch(
-          "http://localhost:3000/general/getAllProjects/", {
+          "/api/general/getAllProjects/", {
             credentials : "include"
           }
         );
@@ -20,7 +20,7 @@ const StudentAllProject = () => {
         }
         return data;
       } catch (error) {
-        throw { message: error.message };
+        throw { message : error.message };
       }
     }
   );

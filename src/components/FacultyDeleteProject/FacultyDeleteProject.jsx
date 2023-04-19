@@ -16,7 +16,7 @@ const FacultyDeleteProject = ({ id, typeId }) => {
     async () => {
       try {
         let allProjects = await fetch(
-          "http://localhost:3000/teacher/getAllProjects/",
+          "/api/teacher/getAllProjects/",
           {
             method: "POST",
             headers: {
@@ -45,7 +45,7 @@ const FacultyDeleteProject = ({ id, typeId }) => {
   } = useMutation(async (data) => {
     try {
       let response = await fetch(
-        "http://localhost:3000/teacher/deleteProject/",
+        "/api/teacher/deleteProject/",
         {
           method: "POST",
           headers: {

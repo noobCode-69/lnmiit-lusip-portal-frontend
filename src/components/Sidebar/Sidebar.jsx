@@ -7,9 +7,11 @@ import logo from "../../assets/logo.png";
 import styled from "./Sidebar.module.css";
 
 const Sidebar = ({ links, id }) => {
+
+
   const navigate = useNavigate();
   const location = useLocation();
-  const handleLogout =async () => {
+  const handleLogout = async () => {
     const {token} = JSON.parse(localStorage.getItem("session"));
     await mutate({token : token});
     localStorage.removeItem('session')
@@ -19,7 +21,7 @@ const Sidebar = ({ links, id }) => {
   
   const {mutate} = useMutation(async (data) => {
     try {
-      let response = await fetch("http://localhost:3000/user/logout", {
+      let response = await fetch("/api/user/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,6 +38,7 @@ const Sidebar = ({ links, id }) => {
       throw { message: error.message };
     }
   })
+  
   return (
     <div className={styled["sidebar"]}>
       <div className={styled["logo"]}>

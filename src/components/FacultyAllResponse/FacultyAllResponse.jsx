@@ -15,7 +15,7 @@ const FacultyAllResponse = ({ id, typeId }) => {
     async () => {
       try {
         let allProjects = await fetch(
-          "http://localhost:3000/teacher/getAllProjects/",
+          "/api/teacher/getAllProjects/",
           {
             method: "POST",
             headers: {
@@ -45,7 +45,7 @@ const FacultyAllResponse = ({ id, typeId }) => {
     async () => {
       try {
         let allResponses = await fetch(
-          "http://localhost:3000/general/getAllResponse/",
+          "/api/general/getAllResponse/",
           {
             method: "POST",
             headers: {
@@ -78,7 +78,7 @@ const FacultyAllResponse = ({ id, typeId }) => {
     async (data) => {
       try {
         const response = await fetch(
-          "http://localhost:3000/teacher/reviewApplication",
+          "/api/teacher/reviewApplication",
           {
             method: "POST",
             headers: {

@@ -6,18 +6,14 @@ import { useQuery } from "react-query";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 
-const AdminAllProject = ({id , typeId}) => {
-
+const AdminAllProject = ({ id, typeId }) => {
   const { data, error, isLoading, isError } = useQuery(
     "admin-all-projects-all-projects",
     async () => {
       try {
-        let allProjects = await fetch(
-          "http://localhost:3000/general/getAllProjects/",
-          {
-            credentials: "include",
-          }
-        );
+        let allProjects = await fetch("/api/general/getAllProjects/", {
+          credentials: "include",
+        });
         const data = await allProjects.json();
         if (allProjects.status == 500) {
           throw { message: data.message };
@@ -28,7 +24,6 @@ const AdminAllProject = ({id , typeId}) => {
       }
     }
   );
-
 
   if (isLoading) {
     return (
@@ -45,9 +40,6 @@ const AdminAllProject = ({id , typeId}) => {
       </div>
     );
   }
-
-
-
 
   return (
     <div className={styled["all-projects-parent"]}>

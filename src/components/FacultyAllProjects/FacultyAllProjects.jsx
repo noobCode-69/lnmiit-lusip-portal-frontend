@@ -14,7 +14,7 @@ const FacultyAllProjects = ({ id, typeId }) => {
     async () => {
       try {
         let allProjects = await fetch(
-          "http://localhost:3000/teacher/getAllProjects/",
+          "/api/teacher/getAllProjects/",
           {
             method: "POST",
             headers: {

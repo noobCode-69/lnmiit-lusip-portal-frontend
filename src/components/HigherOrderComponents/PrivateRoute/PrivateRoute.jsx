@@ -17,7 +17,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/session/getSessionDetails",
+          "/api/session/getSessionDetails",
           {
             method: "POST",
             headers: {

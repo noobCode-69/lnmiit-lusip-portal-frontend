@@ -26,7 +26,7 @@ const Login = () => {
 
   const { data, mutate, isLoading, error } = useMutation(async (data) => {
     try {
-      let response = await fetch("http://localhost:3000/user/login", {
+      let response = await fetch("/api/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

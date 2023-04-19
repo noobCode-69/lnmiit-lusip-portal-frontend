@@ -65,7 +65,7 @@ const FacultyAddProject = ({ id , typeId }) => {
 
   const { mutate, data, isLoading, error } = useMutation(async (data) => {
     try {
-      let response = await fetch("http://localhost:3000/teacher/addProject", {
+      let response = await fetch("/api/teacher/addProject", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

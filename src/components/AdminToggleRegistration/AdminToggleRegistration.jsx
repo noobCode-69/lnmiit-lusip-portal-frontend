@@ -12,7 +12,7 @@ const AdminToggleRegistration = ({ id, typeId }) => {
     async () => {
       try {
         let response = await fetch(
-          "http://localhost:3000/general/getRegistrationStatus/",
+          "/api/general/getRegistrationStatus/",
           {
             credentials: "include",
           }
