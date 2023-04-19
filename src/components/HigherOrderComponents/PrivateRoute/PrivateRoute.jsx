@@ -5,19 +5,14 @@ import { Navigate } from "react-router-dom";
 import Loading from "../../Loading/Loading";
 
 function PrivateRoute({ component: Component, ...rest }) {
-
-
-
-
   const session = JSON.parse(localStorage.getItem("session"));
-
 
   const { data, isLoading, error } = useQuery(
     "session-in-private-route",
     async () => {
       try {
         const response = await fetch(
-          "/api/session/getSessionDetails",
+          import.meta.env.VITE_BACKEND_BASE_URI + "api/session/getSessionDetails",
           {
             method: "POST",
             headers: {
@@ -37,10 +32,9 @@ function PrivateRoute({ component: Component, ...rest }) {
     },
     {
       enabled: session !== null,
-      cacheTime : 0
+      cacheTime: 0,
     }
   );
-
 
   if (isLoading) {
     return (
@@ -50,12 +44,10 @@ function PrivateRoute({ component: Component, ...rest }) {
     );
   }
 
-
   if (error) {
     localStorage.removeItem("session");
     return <Navigate to="/accounts/login" replace />;
   }
-
 
   if (data) {
     const { role } = data;
@@ -71,7 +63,6 @@ function PrivateRoute({ component: Component, ...rest }) {
     }
     return <Component />;
   }
-
 }
 
 export default PrivateRoute;

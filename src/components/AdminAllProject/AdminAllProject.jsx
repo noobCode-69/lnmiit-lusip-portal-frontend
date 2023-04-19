@@ -11,7 +11,7 @@ const AdminAllProject = ({ id, typeId }) => {
     "admin-all-projects-all-projects",
     async () => {
       try {
-        let allProjects = await fetch("/api/general/getAllProjects/", {
+        let allProjects = await fetch(import.meta.env.VITE_BACKEND_BASE_URI +  "api/general/getAllProjects/", {
           credentials: "include",
         });
         const data = await allProjects.json();

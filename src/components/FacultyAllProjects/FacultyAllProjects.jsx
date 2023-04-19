@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 import styled from "./FacultyAllProjects.module.css";
-import {  useQuery } from "react-query";
+import { useQuery } from "react-query";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 
-
-
 const FacultyAllProjects = ({ id, typeId }) => {
-  
-
   const { data, error, isLoading, isError } = useQuery(
     "teacher-all-projects-teacher-all-projects",
     async () => {
       try {
         let allProjects = await fetch(
-          "/api/teacher/getAllProjects/",
+          import.meta.env.VITE_BACKEND_BASE_URI + "api/teacher/getAllProjects/",
           {
             method: "POST",
             headers: {
@@ -35,12 +31,6 @@ const FacultyAllProjects = ({ id, typeId }) => {
     }
   );
 
- 
-
-
-
-  
-
   if (isLoading) {
     return (
       <div className={styled["loading-container"]}>
@@ -55,10 +45,6 @@ const FacultyAllProjects = ({ id, typeId }) => {
       </div>
     );
   }
-
-  
-
- 
 
   return (
     <div className={styled["all-projects-parent"]}>

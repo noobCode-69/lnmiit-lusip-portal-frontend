@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Years = ["1st Year", "2nd Year", "3rd Year", "4th Year", "5th Year"];
 
 const Signup = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -42,15 +42,18 @@ const Signup = () => {
     });
   };
 
-  const { data , mutate, isLoading, error } = useMutation(async (data) => {
+  const { data, mutate, isLoading, error } = useMutation(async (data) => {
     try {
-      let response = await fetch("/api/user/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      let response = await fetch(
+        import.meta.env.VITE_BACKEND_BASE_URI + "api/user/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       const responseData = await response.json();
       if (response.status == 500) {
         throw { message: responseData.message };
@@ -77,11 +80,11 @@ const Signup = () => {
       return { ...newFormData, isValid: isValid };
     });
   }
-  if(data){
-    if(error){
+  if (data) {
+    if (error) {
       return;
     }
-    navigate('/accounts/login' , {replace : true})
+    navigate("/accounts/login", { replace: true });
   }
 
   return (
@@ -106,7 +109,7 @@ const Signup = () => {
         </div>
         <form className={styled["form"]} onSubmit={(e) => onSubmitHandler(e)}>
           {error && <div className={styled["warning"]}>{error.message}</div>}
-          {data && <div className={styled['success']}>{data.message}</div>}
+          {data && <div className={styled["success"]}>{data.message}</div>}
           <input
             placeholder="E-mail address"
             className={styled["form-input"]}

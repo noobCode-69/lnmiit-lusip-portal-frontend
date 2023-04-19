@@ -5,14 +5,13 @@ import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import client from "../../queryClient";
 const AdminToggleRegistration = ({ id, typeId }) => {
-
-
   const { data, error, isLoading, isError } = useQuery(
     "admin-toggle-registration-registration-status-admin",
     async () => {
       try {
         let response = await fetch(
-          "/api/general/getRegistrationStatus/",
+          import.meta.env.VITE_BACKEND_BASE_URI +
+            "api/general/getRegistrationStatus/",
           {
             credentials: "include",
           }
@@ -38,11 +37,12 @@ const AdminToggleRegistration = ({ id, typeId }) => {
     async () => {
       try {
         let response = await fetch(
-          "http://localhost:3000/admin/toggleRegistrationStatus/",
+          import.meta.env.VITE_BACKEND_BASE_URI +
+            "api/admin/toggleRegistrationStatus/",
           {
             method: "POST",
-            headers : {
-                "Content-Type" : "application/json"
+            headers: {
+              "Content-Type": "application/json",
             },
             credentials: "include",
           }
@@ -58,7 +58,9 @@ const AdminToggleRegistration = ({ id, typeId }) => {
     },
     {
       onSettled: () => {
-        client.invalidateQueries(["admin-toggle-registration-registration-status-admin"]);
+        client.invalidateQueries([
+          "admin-toggle-registration-registration-status-admin",
+        ]);
       },
     }
   );

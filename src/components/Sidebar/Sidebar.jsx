@@ -7,28 +7,28 @@ import logo from "../../assets/logo.png";
 import styled from "./Sidebar.module.css";
 
 const Sidebar = ({ links, id }) => {
-
-
   const navigate = useNavigate();
   const location = useLocation();
   const handleLogout = async () => {
-    const {token} = JSON.parse(localStorage.getItem("session"));
-    await mutate({token : token});
-    localStorage.removeItem('session')
+    const { token } = JSON.parse(localStorage.getItem("session"));
+    await mutate({ token: token });
+    localStorage.removeItem("session");
     navigate("/accounts/login", { replace: true });
   };
 
-  
-  const {mutate} = useMutation(async (data) => {
+  const { mutate } = useMutation(async (data) => {
     try {
-      let response = await fetch("/api/user/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials : "include",
-        body: JSON.stringify(data),
-      });
+      let response = await fetch(
+        import.meta.env.VITE_BACKEND_BASE_URI + "api/user/logout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(data),
+        }
+      );
       const responseData = await response.json();
       if (response.status == 500) {
         throw { message: responseData.message };
@@ -37,8 +37,8 @@ const Sidebar = ({ links, id }) => {
     } catch (error) {
       throw { message: error.message };
     }
-  })
-  
+  });
+
   return (
     <div className={styled["sidebar"]}>
       <div className={styled["logo"]}>

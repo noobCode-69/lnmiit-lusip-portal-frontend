@@ -9,13 +9,12 @@ const FacultyAllResponse = ({ id, typeId }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [loadingResponse, setLoadingResponse] = useState(null);
 
-  
   const { data, error, isLoading, isError } = useQuery(
     "teacher-all-response-teacher-all-projects",
     async () => {
       try {
         let allProjects = await fetch(
-          "/api/teacher/getAllProjects/",
+          import.meta.env.VITE_BACKEND_BASE_URI + "api/teacher/getAllProjects/",
           {
             method: "POST",
             headers: {
@@ -45,7 +44,7 @@ const FacultyAllResponse = ({ id, typeId }) => {
     async () => {
       try {
         let allResponses = await fetch(
-          "/api/general/getAllResponse/",
+          import.meta.env.VITE_BACKEND_BASE_URI + "api/general/getAllResponse/",
           {
             method: "POST",
             headers: {
@@ -78,7 +77,7 @@ const FacultyAllResponse = ({ id, typeId }) => {
     async (data) => {
       try {
         const response = await fetch(
-          "/api/teacher/reviewApplication",
+          import.meta.env.VITE_BACKEND_BASE_URI + "api/teacher/reviewApplication",
           {
             method: "POST",
             headers: {
@@ -99,7 +98,10 @@ const FacultyAllResponse = ({ id, typeId }) => {
     },
     {
       onSettled: () => {
-        client.invalidateQueries(["teacher-all-repsonse-projects", selectedProject]);
+        client.invalidateQueries([
+          "teacher-all-repsonse-projects",
+          selectedProject,
+        ]);
       },
     }
   );
@@ -247,4 +249,3 @@ const FacultyAllResponse = ({ id, typeId }) => {
 };
 
 export default FacultyAllResponse;
-

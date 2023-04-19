@@ -10,8 +10,9 @@ const StudentAllProject = () => {
     async () => {
       try {
         let allProjects = await fetch(
-          "/api/general/getAllProjects/", {
-            credentials : "include"
+          import.meta.env.VITE_BACKEND_BASE_URI + "api/general/getAllProjects/",
+          {
+            credentials: "include",
           }
         );
         const data = await allProjects.json();
@@ -20,7 +21,7 @@ const StudentAllProject = () => {
         }
         return data;
       } catch (error) {
-        throw { message : error.message };
+        throw { message: error.message };
       }
     }
   );
@@ -41,13 +42,12 @@ const StudentAllProject = () => {
     );
   }
 
- 
-  
-
   return (
     <div className={styled["all-projects-parent"]}>
       {data && data.projects && data.projects.length == 0 ? (
-        <h1 style={{textAlign : "center"}} className={styled["message"]}>No Projects Yet.</h1>
+        <h1 style={{ textAlign: "center" }} className={styled["message"]}>
+          No Projects Yet.
+        </h1>
       ) : (
         <table className={styled["table"]}>
           <thead className={styled["table-headings"]}>
@@ -67,7 +67,7 @@ const StudentAllProject = () => {
               {data.projects.map((project, index) => {
                 return (
                   <tr key={project._id} className={styled["table-entry"]}>
-                    <td>{index+1}</td>
+                    <td>{index + 1}</td>
                     <td>{project.name}</td>
                     <td>{project.teacherDetails.name}</td>
                     <td className={styled["grow-downward"]}>

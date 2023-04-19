@@ -6,18 +6,20 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import logo2 from "../../assets/logo_black.png";
 
-
 import jsPDF from "jspdf";
-import 'jspdf-autotable';
+import "jspdf-autotable";
 
 const Results = () => {
   const { data, error, isLoading, isError } = useQuery(
     "results-data",
     async () => {
       try {
-        let report = await fetch("http://localhost:3000/api/general/getReport/", {
-          credentials: "include",
-        });
+        let report = await fetch(
+          import.meta.env.VITE_BACKEND_BASE_URI + "api/general/getReport/",
+          {
+            credentials: "include",
+          }
+        );
         const data = await report.json();
         if (report.status == 500) {
           throw { message: data.message };
@@ -35,8 +37,10 @@ const Results = () => {
     isError: isError2,
   } = useQuery("results-registration-status", async () => {
     try {
+      
       let status = await fetch(
-        "http://localhost:3000/api/general/getRegistrationStatus/",
+        import.meta.env.VITE_BACKEND_BASE_URI +
+          "api/general/getRegistrationStatus/",
         {
           credentials: "include",
         }
@@ -99,7 +103,6 @@ const Results = () => {
       array.push(newArr);
     });
 
-
     const doc = new jsPDF();
 
     const headers = [
@@ -115,24 +118,22 @@ const Results = () => {
     ];
 
     doc.autoTable({
-        head: headers,
-        body: array,
-        startY: 20,
-        margin: { top: 20 },
-        styles: { 
-          cellPadding: 4,
-          lineWidth: 0.1,
-          lineColor: [128, 128, 128]
-        }
-      });
+      head: headers,
+      body: array,
+      startY: 20,
+      margin: { top: 20 },
+      styles: {
+        cellPadding: 4,
+        lineWidth: 0.1,
+        lineColor: [128, 128, 128],
+      },
+    });
     doc.save("data.pdf");
   };
 
   return (
     <div className={styled["report-parent"]}>
-
-
-       <div className={styled["nav"]}>
+      <div className={styled["nav"]}>
         <div className={styled["nav-content"]}>
           <div className={styled["logo-container"]}>
             <Link to="/">
@@ -218,8 +219,6 @@ const Results = () => {
         </p>
         <p>©2023 LNMIIT. All rights reserved.</p>
       </div>
-
-
     </div>
   );
 };

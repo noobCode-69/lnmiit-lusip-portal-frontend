@@ -13,7 +13,7 @@ const Years = [
 ];
 const Modes = ["Online", "Offline", "Either"];
 
-const FacultyAddProject = ({ id , typeId }) => {
+const FacultyAddProject = ({ id, typeId }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -24,7 +24,6 @@ const FacultyAddProject = ({ id , typeId }) => {
     prerequists: "",
     isValid: false,
   });
-
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -65,14 +64,17 @@ const FacultyAddProject = ({ id , typeId }) => {
 
   const { mutate, data, isLoading, error } = useMutation(async (data) => {
     try {
-      let response = await fetch("/api/teacher/addProject", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials : "include", 
-        body: JSON.stringify(data),
-      });
+      let response = await fetch(
+        import.meta.env.VITE_BACKEND_BASE_URI + "api/teacher/addProject",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(data),
+        }
+      );
       const responseData = await response.json();
       if (response.status == 500) {
         throw { message: responseData.message };

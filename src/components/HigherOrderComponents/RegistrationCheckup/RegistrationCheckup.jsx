@@ -2,19 +2,18 @@ import React from "react";
 import styled from "./RegistrationCheckup.module.css";
 import Loading from "../../Loading/Loading";
 import Error from "../../Error/Error";
-import { useQuery , useMutation} from "react-query";
+import { useQuery, useMutation } from "react-query";
 
 import { useNavigate } from "react-router";
 
 const RegistrationCheckup = (Component) => {
-
-
   const { data, error, isLoading, isError } = useQuery(
     "registration-checkup-registration-status",
     async () => {
       try {
         let response = await fetch(
-          "/api/general/getRegistrationStatus/",
+          import.meta.env.VITE_BACKEND_BASE_URI +
+            "api/general/getRegistrationStatus/",
           {
             credentials: "include",
           }
@@ -29,8 +28,6 @@ const RegistrationCheckup = (Component) => {
       }
     }
   );
-
-  
 
   if (isLoading) {
     return () => {
@@ -63,14 +60,17 @@ const RegistrationCheckup = (Component) => {
 
       const { mutate } = useMutation(async (data) => {
         try {
-          let response = await fetch("http://localhost:3000/user/logout", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(data),
-          });
+          let response = await fetch(
+            import.meta.env.VITE_BACKEND_BASE_URI + "api/user/logout",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              body: JSON.stringify(data),
+            }
+          );
           const responseData = await response.json();
           if (response.status == 500) {
             throw { message: responseData.message };
@@ -84,7 +84,9 @@ const RegistrationCheckup = (Component) => {
       return (
         <div>
           <div className={styled["error-container"]}>
-            <Error message={"Registration closed for now! Logout to see results!"} />
+            <Error
+              message={"Registration closed for now! Logout to see results!"}
+            />
           </div>
           <div onClick={handleLogout} className={styled["logout-button"]}>
             LOGOUT

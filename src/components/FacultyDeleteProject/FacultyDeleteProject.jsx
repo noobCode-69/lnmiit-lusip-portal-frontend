@@ -16,7 +16,7 @@ const FacultyDeleteProject = ({ id, typeId }) => {
     async () => {
       try {
         let allProjects = await fetch(
-          "/api/teacher/getAllProjects/",
+          import.meta.env.VITE_BACKEND_BASE_URI + "api/teacher/getAllProjects/",
           {
             method: "POST",
             headers: {
@@ -45,7 +45,7 @@ const FacultyDeleteProject = ({ id, typeId }) => {
   } = useMutation(async (data) => {
     try {
       let response = await fetch(
-        "/api/teacher/deleteProject/",
+        import.meta.env.VITE_BACKEND_BASE_URI + "api/teacher/deleteProject/",
         {
           method: "POST",
           headers: {

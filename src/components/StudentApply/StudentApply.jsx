@@ -34,14 +34,17 @@ const StudentApply = ({ id, typeId }) => {
     error: error2,
   } = useMutation(async (data) => {
     try {
-      let response = await fetch("/api/student/apply/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(data),
-      });
+      let response = await fetch(
+        import.meta.env.VITE_BACKEND_BASE_URI + "api/student/apply/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(data),
+        }
+      );
       const responseData = await response.json();
       if (response.status == 500) {
         throw { message: responseData.message };
@@ -65,9 +68,12 @@ const StudentApply = ({ id, typeId }) => {
     "student-apply-all-projects",
     async () => {
       try {
-        let allProjects = await fetch("/api/general/getAllProjects/", {
-          credentials: "include",
-        });
+        let allProjects = await fetch(
+          import.meta.env.VITE_BACKEND_BASE_URI + "api/general/getAllProjects/",
+          {
+            credentials: "include",
+          }
+        );
         const data = await allProjects.json();
         if (allProjects.status == 500) {
           throw { message: data.message };

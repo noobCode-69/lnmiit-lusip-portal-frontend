@@ -1,80 +1,75 @@
-import React , {useState} from "react";
-import styled from './AdminAllResponse.module.css'
-
+import React, { useState } from "react";
+import styled from "./AdminAllResponse.module.css";
 
 import { useQuery, useMutation } from "react-query";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import client from "../../queryClient";
 
-const AdminAllResponse = ({id, typeId}) => {
+const AdminAllResponse = ({ id, typeId }) => {
+  const [selectedProject, setSelectedProject] = useState(null);
 
-
-    const [selectedProject, setSelectedProject] = useState(null);
-
-    const { data, error, isLoading, isError } = useQuery(
-        "admin-all-response-admin-all-projects",
-        async () => {
-          try {
-            let allProjects = await fetch(
-              "/api/general/getAllProjects/",
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                credentials: "include",
-              }
-            );
-            const data = await allProjects.json();
-            if (allProjects.status == 500) {
-              throw { message: data.message };
-            }
-            return data;
-          } catch (error) {
-            throw { message: error.message };
+  const { data, error, isLoading, isError } = useQuery(
+    "admin-all-response-admin-all-projects",
+    async () => {
+      try {
+        let allProjects = await fetch(
+          import.meta.env.VITE_BACKEND_BASE_URI + "api/general/getAllProjects/",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
           }
+        );
+        const data = await allProjects.json();
+        if (allProjects.status == 500) {
+          throw { message: data.message };
         }
-      );
+        return data;
+      } catch (error) {
+        throw { message: error.message };
+      }
+    }
+  );
 
-      const {
-        data: data2,
-        error: error2,
-        isLoading: isLoading2,
-      } = useQuery(
-        ["admin-all-response-projects", selectedProject],
-        async () => {
-          try {
-            let allResponses = await fetch(
-              "http://localhost:3000/general/getAllResponse/",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                credentials: "include",
-                body: JSON.stringify({ projectId: selectedProject }),
-              }
-            );
-            const data = await allResponses.json();
-            if (allResponses.status == 500) {
-              throw { message: data.message };
-            }
-            return data;
-          } catch (error) {
-            throw { message: error.message };
+  const {
+    data: data2,
+    error: error2,
+    isLoading: isLoading2,
+  } = useQuery(
+    ["admin-all-response-projects", selectedProject],
+    async () => {
+      try {
+        let allResponses = await fetch(
+          import.meta.env.VITE_BACKEND_BASE_URI + "api/general/getAllResponse/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({ projectId: selectedProject }),
           }
-        },
-        {
-          enabled: selectedProject != null,
+        );
+        const data = await allResponses.json();
+        if (allResponses.status == 500) {
+          throw { message: data.message };
         }
-      );
+        return data;
+      } catch (error) {
+        throw { message: error.message };
+      }
+    },
+    {
+      enabled: selectedProject != null,
+    }
+  );
 
-      const handleFormChange = (projectId) => {
-        setSelectedProject(projectId);
-      };
-
-
+  const handleFormChange = (projectId) => {
+    setSelectedProject(projectId);
+  };
 
   const fetchResponses = () => {
     if (selectedProject == null) {
@@ -123,19 +118,13 @@ const AdminAllResponse = ({id, typeId}) => {
                   <td>{college}</td>
                   <td>{branch}</td>
                   <td>{year}</td>
-                  { responseStatus == true ? (
+                  {responseStatus == true ? (
                     <td className={styled["status-true"]}>
-                      <span >
-                        {" "}
-                        Approved
-                      </span>
+                      <span> Approved</span>
                     </td>
                   ) : (
                     <td className={styled["status-false"]}>
-                      <span>
-                        {" "}
-                        Waiting{" "}
-                      </span>
+                      <span> Waiting </span>
                     </td>
                   )}
                 </tr>
@@ -200,8 +189,6 @@ const AdminAllResponse = ({id, typeId}) => {
       {fetchResponses()}
     </div>
   );
+};
 
-
-}
-
-export default AdminAllResponse
+export default AdminAllResponse;
