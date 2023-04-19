@@ -25,7 +25,6 @@ const Login = () => {
 
   const { data, mutate, isLoading, error } = useMutation(async (data) => {
     try {
-
       let response = await fetch(
         import.meta.env.VITE_BACKEND_BASE_URI + "api/user/login",
         {
@@ -78,9 +77,9 @@ const Login = () => {
       } else if (role == "admin") {
         link = link + `admin/home/${userId}`;
       }
-      console.log("navigating to link", link);
       navigate(link, { replace: true });
     }
+    console.log(JSON.parse(localStorage.getItem("session")));
   }, [data]);
 
   return (
