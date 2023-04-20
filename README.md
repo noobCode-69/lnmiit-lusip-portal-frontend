@@ -56,4 +56,4 @@ To ensure the security of our users' accounts, we have implemented a multiple de
 
 # Live
 
-The website will be soon made live on [LUSIP](http://www.lusip.lnmiit.ac.in/)
+The website is live and you can visit the url in the description to see it
